@@ -1,1 +1,1 @@
-python bot.py
+python pushingpipsbot/bot.py
