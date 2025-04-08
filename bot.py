@@ -1,9 +1,12 @@
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Load variables from .env
+TOKEN = os.getenv("TELEGRAM_TOKEN")
+
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from kraken_client import get_price
-
-import os
-TELEGRAM_TOKEN = os.getenv("8175719917:AAF6OXKOGPj94qxjl9bYnuKuIz_s2PEKrdA")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Hello! I'm your trading bot. Type /trade to see BTC price.")
@@ -16,7 +19,7 @@ async def trade(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except Exception as e:
         await update.message.reply_text(f"Error: {e}")
 
-app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
+app = ApplicationBuilder().token(TOKEN).build()
 
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("trade", trade))
