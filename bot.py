@@ -63,6 +63,38 @@ async def trade(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(f"Current BTC/USD price: ${price}")
     except Exception as e:
         await update.message.reply_text(f"Error: {e}")
+# Dashboard handler
+async def dashboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("📊 Dashboard is in progress.\nHere you’ll track PnL, active trades & more!")
+
+# Learn handler
+async def learn(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "📚 Learn Mode:\n- Coming soon: bite-sized tips on trading, mindset & growth.\n"
+        "Stay tuned, champ! 💪"
+    )
+
+# Fitness Tips handler
+async def fitness_tips(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "🔥 Fitness Tip:\n\n\"Discipline with your body reflects in your trading. Start your day with movement, even 10 pushups.\""
+    )
+# Dashboard handler
+async def dashboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("📊 Dashboard is in progress.\nHere you’ll track PnL, active trades & more!")
+
+# Learn handler
+async def learn(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "📚 Learn Mode:\n- Coming soon: bite-sized tips on trading, mindset & growth.\n"
+        "Stay tuned, champ! 💪"
+    )
+
+# Fitness Tips handler
+async def fitness_tips(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "🔥 Fitness Tip:\n\n\"Discipline with your body reflects in your trading. Start your day with movement, even 10 pushups.\""
+    )
 
 app = ApplicationBuilder().token(TOKEN).build()
 
