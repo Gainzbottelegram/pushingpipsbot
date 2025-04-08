@@ -68,12 +68,13 @@ app = ApplicationBuilder().token(TOKEN).build()
 
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("trade", trade))
-application.add_handler(MessageHandler(filters.Regex("📊 Dashboard"), dashboard))
-application.add_handler(MessageHandler(filters.Regex("📚 Learn"), learn))
-application.add_handler(MessageHandler(filters.Regex("🔥 Fitness Tips"), fitness_tips))
-application.add_handler(MessageHandler(filters.Regex("💸 Trade Now"), trade))
-application.add_handler(MessageHandler(filters.Regex("🧠 Daily Mindset Boost"), mindset_boost))
-application.add_handler(MessageHandler(filters.Regex("⚙️ Settings"), settings))
+app.add_handler(MessageHandler(filters.Regex("📊 Dashboard"), dashboard))
+app.add_handler(MessageHandler(filters.Regex("📚 Learn"), learn))
+app.add_handler(MessageHandler(filters.Regex("🔥 Fitness Tips"), fitness_tips))
+app.add_handler(MessageHandler(filters.Regex("💸 Trade Now"), trade))
+app.add_handler(MessageHandler(filters.Regex("🧠 Daily Mindset Boost"), mindset_boost))
+app.add_handler(MessageHandler(filters.Regex("⚙️ Settings"), settings))
+
 
 app.run_polling()
 
