@@ -31,6 +31,28 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     await update.message.reply_text(welcome_text, reply_markup=reply_markup)
+async def dashboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("📊 Dashboard is warming up — you’ll soon see all your performance metrics!")
+
+async def learn(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("📚 Learn Hub launching soon — trading lessons, mindset hacks, and more.")
+
+async def fitness_tips(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("🔥 Fitness Tip:\n“Start your day with movement — 20 push-ups clears the fog.”")
+
+async def trade(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        price_data = get_price()
+        price = price_data['result']['XXBTZUSD']['c'][0]
+        await update.message.reply_text(f"💸 Current BTC/USD price: ${price}")
+    except Exception as e:
+        await update.message.reply_text(f"⚠️ Error fetching price: {e}")
+
+async def mindset_boost(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("🧠 Boost:\n“Small steps every day beat huge leaps once in a while.”")
+
+async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("⚙️ Settings coming soon! You'll control risk, alerts & more.")
 
 
 
@@ -46,6 +68,12 @@ app = ApplicationBuilder().token(TOKEN).build()
 
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("trade", trade))
+application.add_handler(MessageHandler(filters.Regex("📊 Dashboard"), dashboard))
+application.add_handler(MessageHandler(filters.Regex("📚 Learn"), learn))
+application.add_handler(MessageHandler(filters.Regex("🔥 Fitness Tips"), fitness_tips))
+application.add_handler(MessageHandler(filters.Regex("💸 Trade Now"), trade))
+application.add_handler(MessageHandler(filters.Regex("🧠 Daily Mindset Boost"), mindset_boost))
+application.add_handler(MessageHandler(filters.Regex("⚙️ Settings"), settings))
 
 app.run_polling()
 
