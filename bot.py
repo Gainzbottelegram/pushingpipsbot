@@ -8,8 +8,31 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from kraken_client import get_price
 
+from telegram import ReplyKeyboardMarkup
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Hello! I'm your trading bot. Type /trade to see BTC price.")
+    user = update.effective_user
+    welcome_text = (
+        f"💪 Welcome to GainzBot — where your journey to financial and physical strength begins!\n\n"
+        f"👋 Glad to have you onboard, {user.first_name}!\n\n"
+        f"📦 Setting up your training zone...\n"
+        f"✅ Account synced and active.\n\n"
+        f"📈 Trading Style: Beginner-Friendly | 🧠 Mindset Mode: On\n"
+        f"⚙️ Status: Online | Latency: Optimal\n\n"
+        f"🌍 Select your language:\n"
+        f"🇺🇸 English | 🇪🇸 Español (coming soon)\n\n"
+        f"👇 Tap an option below to begin:"
+    )
+
+    keyboard = [
+        ["📊 Dashboard", "📚 Learn"],
+        ["🏋️‍♂️ Fitness Tips", "💵 Trade Now"],
+        ["🧠 Daily Mindset Boost", "⚙️ Settings"]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+
+    await update.message.reply_text(welcome_text, reply_markup=reply_markup)
+
+
 
 async def trade(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
