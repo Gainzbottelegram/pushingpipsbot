@@ -58,7 +58,54 @@ async def mindset_boost(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("🧠 Boost:\n“Small steps every day beat huge leaps once in a while.”")
 
 async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("⚙️ Settings coming soon! You'll control risk, alerts & more.")
+    keyboard = [
+        ["🌍 Market Options", "⚠️ Risk Level"],
+        ["💰 Trade Size", "🌙 Overnight Trading"],
+        ["🔄 Auto Withdrawal"]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+
+    await update.message.reply_text(
+        "⚙️ Settings Hub:\nPersonalize your GainzBot experience.\n\n"
+        "You’re in control — like any pro trader or athlete. 💼💪",
+        reply_markup=reply_markup
+    )
+
+async def market_options(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "🌍 Market Options:\nChoose what you want to trade.\n\n"
+        "🔹 Crypto (BTC, ETH, etc.)\n"
+        "🔹 Forex (EUR/USD, GBP/JPY, etc.)\n\n"
+        "Your bot is 24/7 ready — just select your arena."
+    )
+
+async def risk_level(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "⚠️ Risk Level:\nSet your preferred trading risk.\n\n"
+        "🟢 Low (Steady gains)\n🟡 Medium (Balanced approach)\n🔴 High (Aggressive strategies)\n\n"
+        "Coach’s tip: Consistency beats chaos."
+    )
+
+async def trade_size(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "💰 Trade Size:\nDefine how much to risk per trade.\n\n"
+        "Examples:\n- $10 per trade\n- 5% of your balance\n\n"
+        "💡 Smart sizing protects your gains!"
+    )
+
+async def overnight_trading(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "🌙 Overnight Trading:\nShould GainzBot stay active while you sleep?\n\n"
+        "✅ Yes — I want round-the-clock trades\n❌ No — Pause during rest hours\n\n"
+        "💤 Recovery is growth — in life and in markets."
+    )
+
+async def auto_withdrawal(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "🔄 Auto Withdrawal:\nSet up automatic profit pulls.\n\n"
+        "💸 Options:\n- Weekly\n- Monthly\n- After 10% gain\n\n"
+        "💼 Secure the bag, consistently."
+    )
 
 # --- Bot Setup ---
 app = ApplicationBuilder().token(TOKEN).build()
@@ -72,6 +119,11 @@ app.add_handler(MessageHandler(filters.Regex("🏋️‍♂️ Fitness Tips"), f
 app.add_handler(MessageHandler(filters.Regex("💵 Trade Now"), trade))
 app.add_handler(MessageHandler(filters.Regex("🧠 Daily Mindset Boost"), mindset_boost))
 app.add_handler(MessageHandler(filters.Regex("⚙️ Settings"), settings))
+app.add_handler(MessageHandler(filters.Regex("🌍 Market Options"), market_options))
+app.add_handler(MessageHandler(filters.Regex("⚠️ Risk Level"), risk_level))
+app.add_handler(MessageHandler(filters.Regex("💰 Trade Size"), trade_size))
+app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnight_trading))
+app.add_handler(MessageHandler(filters.Regex("🔄 Auto Withdrawal"), auto_withdrawal))
 
 # --- Run Bot ---
 app.run_polling()
