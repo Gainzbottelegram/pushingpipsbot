@@ -59,15 +59,15 @@ async def mindset_boost(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        ["🌍 Market Options", "⚠️ Risk Level"],
+        ["📈 Market Options", "⚖️ Risk Level"],
         ["💰 Trade Size", "🌙 Overnight Trading"],
-        ["🔄 Auto Withdrawal"]
+        ["🏦 Auto Withdrawal", "🔙 Back to Main Menu"]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     await update.message.reply_text(
-        "⚙️ Settings Hub:\nPersonalize your GainzBot experience.\n\n"
-        "You’re in control — like any pro trader or athlete. 💼💪",
+        "⚙️ Settings Panel:\nCustomize your trading style below. Your account, your rules. 💼\n\n"
+        "Choose an option:",
         reply_markup=reply_markup
     )
 
@@ -107,6 +107,19 @@ async def auto_withdrawal(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "💼 Secure the bag, consistently."
     )
 
+async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        ["📊 Dashboard", "📚 Learn"],
+        ["🏋️‍♂️ Fitness Tips", "💵 Trade Now"],
+        ["🧠 Daily Mindset Boost", "⚙️ Settings"]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+
+    await update.message.reply_text(
+        "🏠 Back at base. Choose your next move👇",
+        reply_markup=reply_markup
+    )
+
 # --- Bot Setup ---
 app = ApplicationBuilder().token(TOKEN).build()
 
@@ -124,6 +137,6 @@ app.add_handler(MessageHandler(filters.Regex("⚠️ Risk Level"), risk_level))
 app.add_handler(MessageHandler(filters.Regex("💰 Trade Size"), trade_size))
 app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnight_trading))
 app.add_handler(MessageHandler(filters.Regex("🔄 Auto Withdrawal"), auto_withdrawal))
-
+app.add_handler(MessageHandler(filters.Regex("🔙 Back to Main Menu"), back_to_main_menu))
 # --- Run Bot ---
 app.run_polling()
