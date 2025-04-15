@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-import logging
 import logging
 import os
 from telegram import ReplyKeyboardMarkup, Update
