@@ -322,4 +322,3 @@ app.add_handler(MessageHandler(filters.Regex("🔄 Auto Withdrawal"), auto_withd
 app.add_handler(MessageHandler(filters.Regex("🔙 Back to Main Menu"), back_to_main_menu))
 # --- Run Bot ---
 app.run_polling()
->>>>>>> 35767ff6b5484df98c05c12a61654aab89bd64a1
