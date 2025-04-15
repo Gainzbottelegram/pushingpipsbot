@@ -1,8 +1,46 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, MessageHandler, ContextTypes, filters
 from dotenv import load_dotenv
+load_dotenv()
 import os
 import krakenex
+from flask import Flask, request
+import asyncio
+
+
+# Initialize Flask app
+app = Flask(__name__)
+
+# Webhook URL (Replace with actual Railway URL)
+WEBHOOK_URL = "https://railway.com/project/9bc0584c-9fb1-4287-8170-c6c991727782/service/bc396907-708e-44fb-b680-72e378fc7a24?environmentId=ad21b205-23ae-4f9b-a8ea-be41b72b6560"
+
+# Load environment variables
+load_dotenv()
+
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+KRAKEN_API_KEY = os.getenv("KRAKEN_API_KEY")
+KRAKEN_API_SECRET = os.getenv("KRAKEN_API_SECRET")
+
+print(f"Token loaded: {TELEGRAM_TOKEN is not None}")
+
+# Setup Kraken client
+kraken = krakenex.API()
+kraken.key = KRAKEN_API_KEY
+kraken.secret = KRAKEN_API_SECRET
+
+
+# Step 3: Set up the webhook route
+@app.route("/YOUR_WEBHOOK_PATH", methods=["POST"])
+async def webhook():
+    json_str = request.get_data(as_text=True)
+    update = Update.de_json(json_str, application.bot)
+    
+    # Process the update (e.g., call handlers here)
+    application.process_update(update)
+    
+    return "OK", 200
+
+
 # Deposit method: Generate Kraken deposit address (simplified example)
 def get_deposit_address():
     try:
@@ -11,6 +49,7 @@ def get_deposit_address():
     except Exception as e:
         print("Error fetching deposit address:", e)
         return "Error getting deposit address."
+
 
 # Withdrawal method: Trigger a withdrawal (simplified example)
 def trigger_withdrawal(amount, address):
@@ -21,16 +60,6 @@ def trigger_withdrawal(amount, address):
         print("Error triggering withdrawal:", e)
         return "Error processing withdrawal."
 
-# Load environment variables
-load_dotenv()
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-KRAKEN_API_KEY = os.getenv("KRAKEN_API_KEY")
-KRAKEN_API_SECRET = os.getenv("KRAKEN_API_SECRET")
-
-# Setup Kraken client
-kraken = krakenex.API()
-kraken.key = KRAKEN_API_KEY
-kraken.secret = KRAKEN_API_SECRET
 
 # Fetch price
 def get_price(pair="XXBTZUSD"):
@@ -40,6 +69,7 @@ def get_price(pair="XXBTZUSD"):
     except Exception as e:
         print("Error fetching price:", e)
         return "N/A"
+
 
 # Lessons for Learn module
 lessons = [
@@ -69,6 +99,7 @@ lessons = [
     }
 ]
 
+
 # Trade Now handler: Give user deposit/withdraw options
 async def trade_now_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
@@ -83,6 +114,7 @@ async def trade_now_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=reply_markup
     )
 
+
 # /start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
@@ -96,14 +128,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=reply_markup
     )
 
-# Reply keyboard message handler
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text.lower()
+
 # Deposit handler function
 async def deposit_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     deposit_address = get_deposit_address()  # Call the Kraken function to get the deposit address
     await update.message.reply_text(f"💰 To deposit Bitcoin (BTC), use this address:\n{deposit_address}\n\n"
                                     "Please ensure to only send BTC to this address.")
+
+
 # Withdrawal handler function
 async def withdrawal_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Here, we'll assume the user sends their amount and address as a message (e.g., '0.5 BTC 1A2B3C4D5E...')
@@ -123,55 +155,6 @@ async def withdrawal_handler(update: Update, context: ContextTypes.DEFAULT_TYPE)
     except Exception as e:
         await update.message.reply_text(f"❌ Invalid input or error: {e}")
 
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text.lower()
-
-    if "trade" in text:
-        await trade_now_handler(update, context)
-    elif "deposit" in text:
-        await deposit_handler(update, context)
-    elif "withdraw" in text:
-        await withdrawal_handler(update, context)
-    elif "dashboard" in text:
-        await update.message.reply_text("📊 Dashboard coming soon! All your gains in one view.")
-    elif "learn" in text:
-        await start_learning(update, context)
-    elif "daily mindset" in text:
-        await update.message.reply_text("💪 Trading & lifting tips coming your way.")
-    elif "fitness" in text:
-        await update.message.reply_text("🏋️‍♂️ **Strong mind. Strong trades. Strong body.**")
-    elif "settings" in text:
-        await update.message.reply_text("⚙️ Settings page coming soon. Customize your strategy.")
-    else:
-        await update.message.reply_text("🤔 Not sure what you mean. Try the buttons above!")
-
-# /learn command
-async def learn(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [[InlineKeyboardButton("📘 Start Learning", callback_data="lesson_0")]]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text(
-        "📘 Ready to boost your trading brain?\nTap below to begin the first lesson!",
-        reply_markup=reply_markup
-    )
-
-# Callback handler for lesson navigation
-async def lesson_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()
-
-    lesson_index = int(query.data.split("_")[1])
-    lesson = lessons[lesson_index]
-
-    text = f"🧠 *{lesson['title']}*\n\n{lesson['content']}"
-    buttons = []
-
-    if lesson_index > 0:
-        buttons.append(InlineKeyboardButton("⬅️ Back", callback_data=f"lesson_{lesson_index - 1}"))
-    if lesson_index < len(lessons) - 1:
-        buttons.append(InlineKeyboardButton("➡️ Next", callback_data=f"lesson_{lesson_index + 1}"))
-
-    reply_markup = InlineKeyboardMarkup([buttons]) if buttons else None
-    await query.edit_message_text(text=text, reply_markup=reply_markup, parse_mode="Markdown")
 
 # Callback handler for deposit/withdraw actions
 async def trade_callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -219,18 +202,20 @@ async def trade_callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
             ])
         )
 
+
 # Run bot
 def main():
-    app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
+    global application
+    application = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
 
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("learn", learn))
-    app.add_handler(CallbackQueryHandler(lesson_callback))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    app.add_handler(CallbackQueryHandler(trade_callbacks))
+    application.add_handler(CommandHandler("start", start))
+    application.add_handler(CallbackQueryHandler(lesson_callback))
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    application.add_handler(CallbackQueryHandler(trade_callbacks))
 
     print("⚡️ GainzBot is live!")
-    app.run_polling()
+    application.run_polling()
+
 
 if __name__ == "__main__":
     main()
