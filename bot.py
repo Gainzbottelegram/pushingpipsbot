@@ -29,7 +29,7 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 # Custom reply keyboard
 keyboard = [
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings", "🌍 Language"]
 ]
 reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
@@ -37,6 +37,14 @@ reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 def get_price(pair="XXBTZUSD"):
     response = kraken.query_public("Ticker", {"pair": pair})
     return f"${response['result'][pair]['c'][0]}"
+
+# Language keyboard options
+LANGUAGE_OPTIONS = [["🇺🇸 English", "🇪🇸 Español", "🇷🇺 Русский"]]
+language_markup = ReplyKeyboardMarkup(LANGUAGE_OPTIONS, resize_keyboard=True, one_time_keyboard=True)
+
+# Handle "🌍 Language" button tap
+async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    await update.message.reply_text("🌍 Choose your preferred language:", reply_markup=language_markup)
 
 # /start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -55,6 +63,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     if user_message == "📈 Trade Now":
         price = get_price()
         await update.message.reply_text(f"*Current BTC/USD:* {price}", parse_mode="Markdown")
+
+    elif user_message == "🌍 Language":
+        await language_handler(update, context)
 
     elif user_message == "🧠 Daily Mindset Boost":
         await update.message.reply_text("💬 *Discipline is choosing what you want most over what you want now.* Let’s get after it. 🔥", parse_mode="Markdown")
