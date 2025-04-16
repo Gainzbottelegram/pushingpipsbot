@@ -20,7 +20,7 @@ SUPPORTED_LANGUAGES = {
 "🇪🇸 Español": "es",
 "🇷🇺 Русский": "ru",
 "🇫🇷 Français": "fr",
-"🇩🇪 Deutsch": "de"
+"🇩🇪 Deutsch": ""
 }
 
 translations = {
@@ -88,7 +88,7 @@ import pandas as pd
 "🇪🇸 Español": "es",
 "🇷🇺 Русский": "ru",
 "🇫🇷 Français": "fr",
-"🇩🇪 Deutsch": e",
+"🇩🇪 Deutsc: "de"
 }
 
 
