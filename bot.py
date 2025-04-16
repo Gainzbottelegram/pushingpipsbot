@@ -6,6 +6,8 @@ from telegram import ReplyKeyboardMarkup, Update
     MessageHandler,
     ContextTypes,
     filters,
+)
+
 from dotenv import load_dotenv
 import krakenex
 import pandas as pd
