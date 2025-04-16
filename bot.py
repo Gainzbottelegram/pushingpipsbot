@@ -77,11 +77,7 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 keyboard = [
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
     ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
-    ApplicationBuilder,
-    CommandHandler,
-    MessageHandler,
-    ContextTypes,
-    filters,
+]
 import krakenex
 import pandas as pd
 
