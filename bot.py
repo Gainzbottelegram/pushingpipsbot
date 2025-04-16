@@ -1,3 +1,4 @@
+
 import logging
 import os
 from telegram.ext import (
@@ -82,7 +83,7 @@ import krakenex
 import pandas as pd
 
 
-# Language & Tip Support
+# Language & Tip Support = {
     "🇺🇸 English": "en",
     "🇪🇸 Español": "es",
     "🇷🇺 Русский": "ru",
