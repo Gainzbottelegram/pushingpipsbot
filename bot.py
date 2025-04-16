@@ -16,11 +16,11 @@ import pandas as pd
 
 # Language & Tip Support
 SUPPORTED_LANGUAGES = {
-"🇬🇧 English": "en",
-"🇪🇸 Español": "es",
-"🇷🇺 Русский": "ru",
-"🇫🇷 Français": "fr",
-"🇩🇪 Deutsc: "de"
+    "🇬🇧 English": "en",
+    "🇪🇸 Español": "es",
+    "🇷🇺 Русский": "ru",
+    "🇫🇷 Français": "fr",
+    "🇩🇪 Deutsch": "de"
 }
 
 translations = {
