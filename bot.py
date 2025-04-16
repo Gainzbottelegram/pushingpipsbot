@@ -260,10 +260,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(welcome_msg)
     await update.message.reply_text(choose_msg, reply_markup=reply_markup)
-        "👋 Welcome to *GainzBot* – your personal coach for both *financial* and *physical* gains!\n\n"
-        "Get pumped for real-time trading insights, daily motivation, and fitness guidance.\n\n"
-        "💪 Ready to level up?\n\n"
-        "Choose an option below to begin ⬇️"
+
+    welcome_message = (
+        "💬 *Welcome to GainzBot* – your personal coach for both *financial* and *physical* gains!💪\n\n"
+        "📊 *Dashboard* – Real-time trading insights, daily motivation, and fitness guidance.\n"
+        "🚀 *Ready to level up?* Time to push some trades.\n"
+        "👇 *Choose an option below to begin* 👇"
+    )
     await update.message.reply_text(welcome_message, reply_markup=reply_markup, parse_mode="Markdown")
 
 # Message handler for menu buttons
