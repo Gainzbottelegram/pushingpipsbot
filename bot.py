@@ -162,6 +162,7 @@ async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
 
 # /start command
 
+# /start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     lang_code = update.effective_user.language_code[:2]
     context.user_data["lang"] = lang_code
