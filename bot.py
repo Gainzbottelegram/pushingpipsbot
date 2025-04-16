@@ -88,7 +88,7 @@ import pandas as pd
 "🇪🇸 Español": "es",
 "🇷🇺 Русский": "ru",
 "🇫🇷 Français": "fr",
-"🇩🇪 Deutsch": "de"
+"🇩🇪 Deutsch": e",
 }
 
 
