@@ -20,7 +20,7 @@ SUPPORTED_LANGUAGES = {
 "🇪🇸 Español": "es",
 "🇷🇺 Русский": "ru",
 "🇫🇷 Français": "fr",
-"🇩🇪 Deutsch": ""
+"🇩🇪 Deutsch":de ""
 }
 
 translations = {
@@ -81,16 +81,15 @@ keyboard = [
 ]
 import krakenex
 import pandas as pd
-
-
-# Language & Tip Support = {
-"🇬🇧 English": "en",
-"🇪🇸 Español": "es",
-"🇷🇺 Русский": "ru",
-"🇫🇷 Français": "fr",
-"🇩🇪 Deuch"sc: "de"
+B
+# Language & Tip Support
+SUPPORTED_LANGUAGES = {
+    "🇬🇧 English": "en",
+    "🇪🇸 Español": "es",
+    "🇷🇺 Русский": "ru",
+    "🇫🇷 Français": "fr",
+    "🇩🇪 Deutsch": "de"
 }
-
 
     "welcome": {
         "en": "Welcome to GainzBot 💪 Let's level up your body, bank, and brain.",
