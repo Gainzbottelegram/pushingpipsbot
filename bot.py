@@ -20,7 +20,7 @@ SUPPORTED_LANGUAGES = {
 "🇪🇸 Español": "es",
 "🇷🇺 Русский": "ru",
 "🇫🇷 Français": "fr",
-"🇩🇪 Deutsch":de ""
+"🇩🇪 Deutsc: "de"
 }
 
 translations = {
@@ -105,7 +105,6 @@ SUPPORTED_LANGUAGES = {
         "fr": "Choisis ta prochaine étape :",
         "de": "Wähle deinen nächsten Schritt:"
     }
-}
 
 def get_user_lang(context, update):
     return context.user_data.get("lang") or update.effective_user.language_code[:2]
