@@ -12,6 +12,55 @@ from dotenv import load_dotenv
 import krakenex
 import pandas as pd
 
+
+# Language & Tip Support
+SUPPORTED_LANGUAGES = {
+    "🇺🇸 English": "en",
+    "🇪🇸 Español": "es",
+    "🇷🇺 Русский": "ru",
+    "🇫🇷 Français": "fr",
+    "🇩🇪 Deutsch": "de"
+}
+
+translations = {
+    "welcome": {
+        "en": "Welcome to GainzBot 💪 Let's level up your body, bank, and brain.",
+        "es": "Bienvenido a GainzBot 💪 Vamos a mejorar tu cuerpo, mente y billetera.",
+        "ru": "Добро пожаловать в GainzBot 💪 Прокачаем тело, кошелёк и ум.",
+        "fr": "Bienvenue sur GainzBot 💪 Élevons ton corps, ton portefeuille et ton esprit.",
+        "de": "Willkommen bei GainzBot 💪 Lass uns Körper, Geld und Geist verbessern."
+    },
+    "choose_action": {
+        "en": "Choose your next move:",
+        "es": "Elige tu siguiente paso:",
+        "ru": "Выберите следующее действие:",
+        "fr": "Choisis ta prochaine étape :",
+        "de": "Wähle deinen nächsten Schritt:"
+    }
+}
+
+def get_user_lang(context, update):
+    return context.user_data.get("lang") or update.effective_user.language_code[:2]
+
+def t(key, lang):
+    return translations.get(key, {}).get(lang, translations[key]["en"])
+
+def get_tip(section, lang):
+    # Placeholder – link to external tip loader in future
+    sample = {
+        "fitness": {
+            "en": ["Train smart, not just hard."],
+            "es": ["Entrena con inteligencia, no solo con fuerza."]
+        },
+        "finance": {
+            "en": ["Risk small to gain big."],
+            "es": ["Arriesga poco para ganar mucho."]
+        }
+    }
+    tips = sample.get(section, {})
+    return tips.get(lang, tips.get("en", ["Stay consistent."]))[0]
+
+
 # Load environment variables
 load_dotenv()
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
@@ -29,6 +78,14 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 # Custom reply keyboard
 keyboard = [
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+]
+
+settings_keyboard = [
+    ["💼 Risk Level", "🎚 Trade Size"],
+    ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
+    ["🌍 Change Language", "⬅️ Back"]
+],
     ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings", "🌍 Language"]
 ]
 reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
@@ -47,8 +104,16 @@ async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
     await update.message.reply_text("🌍 Choose your preferred language:", reply_markup=language_markup)
 
 # /start command
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    welcome_message = (
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    lang_code = update.effective_user.language_code[:2]
+    context.user_data["lang"] = lang_code
+
+    welcome_msg = t("welcome", lang_code)
+    choose_msg = t("choose_action", lang_code)
+
+    await update.message.reply_text(welcome_msg)
+    await update.message.reply_text(choose_msg, reply_markup=reply_markup)
         "Welcome to *GainzBot* – your personal coach for both *financial* and *physical* gains!💪\n\n"
         "📊 *Dashboard* – Real-time trading insights, daily motivation, and fitness guidance.\n"
         "📈 *Ready to level up?* Time to push some trades.\n"
@@ -122,7 +187,15 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 # Custom reply keyboard
 main_keyboard = [
-    ["🏋️ Dashboard", "📚 Learn", "🔥 Fitness Tips"],
+    ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+]
+
+settings_keyboard = [
+    ["💼 Risk Level", "🎚 Trade Size"],
+    ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
+    ["🌍 Change Language", "⬅️ Back"]
+],
     ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
 ]
 reply_markup = ReplyKeyboardMarkup(main_keyboard, resize_keyboard=True)
@@ -134,8 +207,16 @@ def get_price(pair="XXBTZUSD"):
     return f"${price}"
 
 # /start command handler
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    welcome_message = (
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    lang_code = update.effective_user.language_code[:2]
+    context.user_data["lang"] = lang_code
+
+    welcome_msg = t("welcome", lang_code)
+    choose_msg = t("choose_action", lang_code)
+
+    await update.message.reply_text(welcome_msg)
+    await update.message.reply_text(choose_msg, reply_markup=reply_markup)
         "👋 Welcome to *GainzBot* – your personal coach for both *financial* and *physical* gains!\n\n"
         "Get pumped for real-time trading insights, daily motivation, and fitness guidance.\n\n"
         "💪 Ready to level up?\n\n"
@@ -176,7 +257,7 @@ if __name__ == "__main__":
     app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    print("🤖 GainzBot is live and flexing!")
+    print("🤖 GainzBot is live and shining!")
     app.run_polling()
 
 =======
@@ -192,8 +273,16 @@ load_dotenv()
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 
 # --- Start Command ---
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user = update.effective_user
+    lang_code = update.effective_user.language_code[:2]
+    context.user_data["lang"] = lang_code
+
+    welcome_msg = t("welcome", lang_code)
+    choose_msg = t("choose_action", lang_code)
+
+    await update.message.reply_text(welcome_msg)
+    await update.message.reply_text(choose_msg, reply_markup=reply_markup)
     welcome_text = (
         f"💪 Welcome to GainzBot — where your journey to financial and physical strength begins!\n\n"
         f"👋 Glad to have you onboard, {user.first_name}!\n\n"
@@ -207,7 +296,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     keyboard = [
-        ["📊 Dashboard", "📚 Learn"],
+    ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+]
+
+settings_keyboard = [
+    ["💼 Risk Level", "🎚 Trade Size"],
+    ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
+    ["🌍 Change Language", "⬅️ Back"]
+],
         ["🏋️‍♂️ Fitness Tips", "💵 Trade Now"],
         ["🧠 Daily Mindset Boost", "⚙️ Settings"]
     ]
@@ -241,7 +338,15 @@ async def mindset_boost(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        ["📈 Market Options", "⚖️ Risk Level"],
+    ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+]
+
+settings_keyboard = [
+    ["💼 Risk Level", "🎚 Trade Size"],
+    ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
+    ["🌍 Change Language", "⬅️ Back"]
+],
         ["💰 Trade Size", "🌙 Overnight Trading"],
         ["🏦 Auto Withdrawal", "🔙 Back to Main Menu"]
     ]
@@ -291,7 +396,15 @@ async def auto_withdrawal(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        ["📊 Dashboard", "📚 Learn"],
+    ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+]
+
+settings_keyboard = [
+    ["💼 Risk Level", "🎚 Trade Size"],
+    ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
+    ["🌍 Change Language", "⬅️ Back"]
+],
         ["🏋️‍♂️ Fitness Tips", "💵 Trade Now"],
         ["🧠 Daily Mindset Boost", "⚙️ Settings"]
     ]
@@ -322,3 +435,4 @@ app.add_handler(MessageHandler(filters.Regex("🔄 Auto Withdrawal"), auto_withd
 app.add_handler(MessageHandler(filters.Regex("🔙 Back to Main Menu"), back_to_main_menu))
 # --- Run Bot ---
 app.run_polling()
+
