@@ -76,17 +76,19 @@ kraken.secret = KRAKEN_API_SECRET
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
 # Custom reply keyboard
+
 keyboard = [
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings", "🌍 Language"]
 ]
 
 settings_keyboard = [
     ["💼 Risk Level", "🎚 Trade Size"],
     ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
     ["🌍 Change Language", "⬅️ Back"]
-],
-["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings", "🌍 Language"]
+]
+,
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings", "🌍 Language"]
 ]
 reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
@@ -186,16 +188,18 @@ kraken.secret = KRAKEN_API_SECRET
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
 # Custom reply keyboard
-main_keyboard = [
+main_
+keyboard = [
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings", "🌍 Language"]
 ]
 
 settings_keyboard = [
     ["💼 Risk Level", "🎚 Trade Size"],
     ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
     ["🌍 Change Language", "⬅️ Back"]
-],
+]
+,
     ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
 ]
 reply_markup = ReplyKeyboardMarkup(main_keyboard, resize_keyboard=True)
@@ -295,9 +299,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"👇 Tap an option below to begin:"
     )
 
-    keyboard = [
+    
+keyboard = [
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings", "🌍 Language"]
 ]
 
 settings_keyboard = [
@@ -305,6 +310,7 @@ settings_keyboard = [
     ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
     ["🌍 Change Language", "⬅️ Back"]
 ]
+,
         ["🏋️‍♂️ Fitness Tips", "💵 Trade Now"],
         ["🧠 Daily Mindset Boost", "⚙️ Settings"]
     ]
@@ -337,16 +343,18 @@ async def mindset_boost(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("🧠 Boost:\n“Small steps every day beat huge leaps once in a while.”")
 
 async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [
+    
+keyboard = [
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings", "🌍 Language"]
 ]
 
 settings_keyboard = [
     ["💼 Risk Level", "🎚 Trade Size"],
     ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
     ["🌍 Change Language", "⬅️ Back"]
-],
+]
+,
         ["💰 Trade Size", "🌙 Overnight Trading"],
         ["🏦 Auto Withdrawal", "🔙 Back to Main Menu"]
     ]
@@ -395,16 +403,18 @@ async def auto_withdrawal(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [
+    
+keyboard = [
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings", "🌍 Language"]
 ]
 
 settings_keyboard = [
     ["💼 Risk Level", "🎚 Trade Size"],
     ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
     ["🌍 Change Language", "⬅️ Back"]
-],
+]
+,
         ["🏋️‍♂️ Fitness Tips", "💵 Trade Now"],
         ["🧠 Daily Mindset Boost", "⚙️ Settings"]
     ]
