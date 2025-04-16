@@ -78,7 +78,7 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 # Custom reply keyboard
 keyboard = [
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Setting"]
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
 ]
 
 settings_keyboard = [
@@ -86,7 +86,7 @@ settings_keyboard = [
     ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
     ["🌍 Change Language", "⬅️ Back"]
 ],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings", "🌍 Language"]
+["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings", "🌍 Language"]
 ]
 reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
@@ -257,7 +257,7 @@ if __name__ == "__main__":
     app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    print("🤖 GainzBot is live and shining!")
+    print("🤖 GainzBot is live and flexing!")
     app.run_polling()
 
 =======
