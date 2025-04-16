@@ -304,7 +304,7 @@ settings_keyboard = [
     ["💼 Risk Level", "🎚 Trade Size"],
     ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
     ["🌍 Change Language", "⬅️ Back"]
-],
+]
         ["🏋️‍♂️ Fitness Tips", "💵 Trade Now"],
         ["🧠 Daily Mindset Boost", "⚙️ Settings"]
     ]
