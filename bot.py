@@ -16,11 +16,11 @@ import pandas as pd
 
 # Language & Tip Support
 SUPPORTED_LANGUAGES = {
-    "🇺🇸 English": "en",
-    "🇪🇸 Español": "es",
-    "🇷🇺 Русский": "ru",
-    "🇫🇷 Français": "fr",
-    "🇩🇪 Deutsch": "de"
+"🇬🇧 English": "en",
+"🇪🇸 Español": "es",
+"🇷🇺 Русский": "ru",
+"🇫🇷 Français": "fr",
+"🇩🇪 Deutsch": "de"
 }
 
 translations = {
@@ -84,12 +84,13 @@ import pandas as pd
 
 
 # Language & Tip Support = {
-    "🇺🇸 English": "en",
-    "🇪🇸 Español": "es",
-    "🇷🇺 Русский": "ru",
-    "🇫🇷 Français": "fr",
-    "🇩🇪 Deutsch": "de"
+"🇬🇧 English": "en",
+"🇪🇸 Español": "es",
+"🇷🇺 Русский": "ru",
+"🇫🇷 Français": "fr",
+"🇩🇪 Deutsch": "de"
 }
+
 
     "welcome": {
         "en": "Welcome to GainzBot 💪 Let's level up your body, bank, and brain.",
