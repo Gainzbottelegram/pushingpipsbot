@@ -91,6 +91,7 @@ SUPPORTED_LANGUAGES = {
     "🇩🇪 Deutsch": "de"
 }
 
+translations = {
     "welcome": {
         "en": "Welcome to GainzBot 💪 Let's level up your body, bank, and brain.",
         "es": "Bienvenido a GainzBot 💪 Vamos a mejorar tu cuerpo, mente y billetera.",
@@ -105,6 +106,7 @@ SUPPORTED_LANGUAGES = {
         "fr": "Choisis ta prochaine étape :",
         "de": "Wähle deinen nächsten Schritt:"
     }
+}
 
 def get_user_lang(context, update):
     return context.user_data.get("lang") or update.effective_user.language_code[:2]
