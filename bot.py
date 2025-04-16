@@ -78,7 +78,7 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 # Custom reply keyboard
 keyboard = [
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Setting"]
 ]
 
 settings_keyboard = [
