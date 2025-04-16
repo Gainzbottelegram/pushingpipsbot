@@ -138,11 +138,12 @@ def get_tip(section, lang):
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
 # Custom reply keyboard
+keyboard = [
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
-
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
     ["💼 Risk Level", "🎚 Trade Size"],
-    ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
+    ["🌙 Overnight Mode", "💸 Auto Withdrawals"]
+]
 
 reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
