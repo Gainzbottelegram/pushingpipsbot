@@ -167,8 +167,7 @@ settings_keyboard = [
     ["💼 Risk Level", "🎚 Trade Size"],
     ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
 ]
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings", "🌍 Language"]
-]
+
 reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
 # Price fetch
