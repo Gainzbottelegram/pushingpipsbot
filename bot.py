@@ -336,6 +336,7 @@ async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ["💼 Risk Level", "💰 Trade Size"],
         ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
         ["🌍 Change Language", "⬅️ Back to Main Menu"]
+
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
@@ -347,7 +348,6 @@ async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     )
 
-
 async def market_options(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "🌍 Market Options:\nChoose what you want to trade.\n\n"
@@ -355,11 +355,15 @@ async def market_options(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🔹 Forex (EUR/USD, GBP/JPY, etc.)\n\n"
         "Your bot is 24/7 ready — just select your arena."
 
+    )
+
 async def risk_level(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "⚠️ Risk Level:\nSet your preferred trading risk.\n\n"
         "🟢 Low (Steady gains)\n🟡 Medium (Balanced approach)\n🔴 High (Aggressive strategies)\n\n"
         "Coach’s tip: Consistency beats chaos."
+
+    )
 
 async def trade_size(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
@@ -367,11 +371,15 @@ async def trade_size(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Examples:\n- $10 per trade\n- 5% of your balance\n\n"
         "💡 Smart sizing protects your gains!"
 
+    )
+
 async def overnight_trading(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "🌙 Overnight Trading:\nShould GainzBot stay active while you sleep?\n\n"
         "✅ Yes — I want round-the-clock trades\n❌ No — Pause during rest hours\n\n"
         "💤 Recovery is growth — in life and in markets."
+
+    )
 
 async def auto_withdrawal(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
@@ -379,20 +387,21 @@ async def auto_withdrawal(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "💸 Options:\n- Weekly\n- Monthly\n- After 10% gain\n\n"
         "💼 Secure the bag, consistently."
 
-async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+    )
 
-    ["💼 Risk Level", "🎚 Trade Size"],
-    ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
-    ["🌍 Change Language", "⬅️ Back"]
-        ["🏋️‍♂️ Fitness Tips", "💵 Trade Now"],
-        ["🧠 Daily Mindset Boost", "⚙️ Settings"]
+async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
+        ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+    ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    await update.message.reply_text("⬅️ Back at base. Choose your next move 👇", reply_markup=reply_markup)
 
     await update.message.reply_text(
-        "🏠 Back at base. Choose your next move👇",
-        reply_markup=reply_markup
+    "⬅️ Back at base. No excuses. Choose your next move wisely. 💼🔥",
+    reply_markup=reply_markup
+
+    )
 
 # --- Bot Setup ---
 app = ApplicationBuilder().token(TOKEN).build()
