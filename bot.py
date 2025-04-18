@@ -326,7 +326,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     welcome_text = (
         f"💪 Welcome to GainzBot — where your journey to financial and physical strength begins!\n\n"
-        f"👋 Glad to have you onboard, {user.first_name}!\n\n"
+        f"👋 Glad to have you onboard, {user.first_name}! Lets get the Gainz in💪\n\n"
         f"📦 Setting up your training zone...\n"
         f"✅ Account synced and active.\n\n"
         f"📈 Trading Style: Beginner-Friendly | 🧠 Mindset Mode: On\n"
