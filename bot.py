@@ -305,8 +305,6 @@ if __name__ == "__main__":
     print("🤖 GainzBot is live and flexing!")
     app.run_polling()
 
-=======
-
 from kraken_client import get_price  # Make sure this is your custom function
 
 # Load token from .env
