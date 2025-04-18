@@ -171,9 +171,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     elif user_message == "🌍 Language":
         await language_handler(update, context)
 
-    elif user_message == "🧠 Daily Mindset Boost":
-        await update.message.reply_text("💬 *Discipline is choosing what you want most over what you want now.* Let’s get after it. 🔥", parse_mode="Markdown")
-
     elif user_message == "🏋️ Fitness Tips":
         await update.message.reply_text("🏃 *Quick tip:* Hustle. Drink water before you even feel thirsty. 💧")
 
@@ -449,9 +446,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
     elif user_message == "⚙️ Settings":
         await update.message.reply_text("⚙️ *Settings coming soon:* Market type, risk level, auto withdrawal & more!")
-
-    elif user_message == "📊 Dashboard":
-        await update.message.reply_text("📊 Your dashboard will soon show open trades, gainz, and goals. Stay tuned!")
 
     else:
         await update.message.reply_text("🤖 Not sure what that means, champ. Try hitting a button below.")
