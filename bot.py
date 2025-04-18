@@ -335,14 +335,14 @@ async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ["💼 Risk Level", "🎚 Trade Size"],
     ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
     ["🌍 Change Language", "⬅️ Back"]
-        ["💰 Trade Size", "🌙 Overnight Trading"],
-        ["🏦 Auto Withdrawal", "🔙 Back to Main Menu"]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    ["💰 Trade Size", "🌙 Overnight Trading"],
+    ["🏦 Auto Withdrawal", "🔙 Back to Main Menu"]
+   
+reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     await update.message.reply_text(
         "⚙️ Settings Panel:\nCustomize your trading style below. Your account, your rules. 💼\n\n"
         "Choose an option:",
-        reply_markup=reply_markup
 
 async def market_options(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
