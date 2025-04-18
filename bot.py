@@ -326,23 +326,25 @@ async def trade(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except Exception as e:
         await update.message.reply_text(f"⚠️ Error fetching price: {e}")
 
+
 async def mindset_boost(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("🧠 Boost:\n“Small steps every day beat huge leaps once in a while.”")
 
+
 async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
-    ["💼 Risk Level", "🎚 Trade Size"],
-    ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
-    ["🌍 Change Language", "⬅️ Back"]
-    ["💰 Trade Size", "🌙 Overnight Trading"],
-    ["🏦 Auto Withdrawal", "🔙 Back to Main Menu"]
-   
-reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    keyboard = [
+        ["💼 Risk Level", "💰 Trade Size"],
+        ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
+        ["🌍 Change Language", "⬅️ Back to Main Menu"]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     await update.message.reply_text(
-        "⚙️ Settings Panel:\nCustomize your trading style below. Your account, your rules. 💼\n\n"
-        "Choose an option:",
+        "⚙️ *Settings Panel:*\nCustomize your trading style below. Your account, your rules. 🧠💪\n\n"
+        "👇 Choose an option to adjust:",
+        parse_mode="Markdown",
+        reply_markup=reply_markup
+    )
 
 async def market_options(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
