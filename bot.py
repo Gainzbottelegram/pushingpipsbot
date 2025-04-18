@@ -340,11 +340,12 @@ async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     await update.message.reply_text(
-        "⚙️ *Settings Panel:*\nCustomize your trading style below. Your account, your rules. 🧠💪\n\n"
+        "⚙️ **Settings Panel:*\nCustomize your trading style below. Your account, your rules. 🧠💪\n\n"
         "👇 Choose an option to adjust:",
         parse_mode="Markdown",
         reply_markup=reply_markup
     )
+
 
 async def market_options(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
