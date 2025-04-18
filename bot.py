@@ -160,27 +160,6 @@ language_markup = ReplyKeyboardMarkup(LANGUAGE_OPTIONS, resize_keyboard=True, on
 async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("🌍 Choose your preferred language:", reply_markup=language_markup)
 
-# /start command
-
-# /start command
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    lang_code = update.effective_user.language_code[:2]
-    context.user_data["lang"] = lang_code
-
-    welcome_msg = t("welcome", lang_code)
-    choose_msg = t("choose_action", lang_code)
-
-    await update.message.reply_text(welcome_msg)
-    await update.message.reply_text(choose_msg, reply_markup=reply_markup)
-
-    welcome_message = (
-        "💬 *Welcome to GainzBot* – your personal coach for both *financial* and *physical* gains!💪\n\n"
-        "📊 *Dashboard* – Real-time trading insights, daily motivation, and fitness guidance.\n"
-        "🚀 *Ready to level up?* Time to push some trades.\n"
-        "👇 *Choose an option below to begin* 👇"
-    )
-    await update.message.reply_text(welcome_message, reply_markup=reply_markup, parse_mode="Markdown")
-
 
 # Button/text responses
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -250,25 +229,6 @@ def get_price(pair="XXBTZUSD"):
     price = response["result"][pair]["c"][0]
     return f"${price}"
 
-# /start command handler
-
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    lang_code = update.effective_user.language_code[:2]
-    context.user_data["lang"] = lang_code
-
-    welcome_msg = t("welcome", lang_code)
-    choose_msg = t("choose_action", lang_code)
-
-    await update.message.reply_text(welcome_msg)
-    await update.message.reply_text(choose_msg, reply_markup=reply_markup)
-
-    welcome_message = (
-        "💬 *Welcome to GainzBot* – your personal coach for both *financial* and *physical* gains!💪\n\n"
-        "📊 *Dashboard* – Real-time trading insights, daily motivation, and fitness guidance.\n"
-        "🚀 *Ready to level up?* Time to push some trades.\n"
-        "👇 *Choose an option below to begin* 👇"
-    )
-    await update.message.reply_text(welcome_message, reply_markup=reply_markup, parse_mode="Markdown")
 
 # Message handler for menu buttons
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -458,22 +418,6 @@ app.run_polling()
 async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("🌍 Choose your preferred language:", reply_markup=language_markup)
 
-# /start command
-
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    lang_code = update.effective_user.language_code[:2]
-    context.user_data["lang"] = lang_code
-
-    welcome_msg = t("welcome", lang_code)
-    choose_msg = t("choose_action", lang_code)
-
-    await update.message.reply_text(welcome_msg)
-    await update.message.reply_text(choose_msg, reply_markup=reply_markup)
-        "Welcome to *GainzBot* – your personal coach for both *financial* and *physical* gains!💪\n\n"
-        "📊 *Dashboard* – Real-time trading insights, daily motivation, and fitness guidance.\n"
-        "📈 *Ready to level up?* Time to push some trades.\n"
-        "👇 Choose an action below to begin 👇"
-    await update.message.reply_text(welcome_message, reply_markup=reply_markup, parse_mode="Markdown")
 
 # Button/text responses
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -542,22 +486,6 @@ def get_price(pair="XXBTZUSD"):
     price = response["result"][pair]["c"][0]
     return f"${price}"
 
-# /start command handler
-
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    lang_code = update.effective_user.language_code[:2]
-    context.user_data["lang"] = lang_code
-
-    welcome_msg = t("welcome", lang_code)
-    choose_msg = t("choose_action", lang_code)
-
-    await update.message.reply_text(welcome_msg)
-    await update.message.reply_text(choose_msg, reply_markup=reply_markup)
-        "👋 Welcome to *GainzBot* – your personal coach for both *financial* and *physical* gains!\n\n"
-        "Get pumped for real-time trading insights, daily motivation, and fitness guidance.\n\n"
-        "💪 Ready to level up?\n\n"
-        "Choose an option below to begin ⬇️"
-    await update.message.reply_text(welcome_message, reply_markup=reply_markup, parse_mode="Markdown")
 
 # Message handler for menu buttons
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -600,38 +528,6 @@ from kraken_client import get_price  # Make sure this is your custom function
 
 # Load token from .env
 
-# --- Start Command ---
-
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    lang_code = update.effective_user.language_code[:2]
-    context.user_data["lang"] = lang_code
-
-    welcome_msg = t("welcome", lang_code)
-    choose_msg = t("choose_action", lang_code)
-
-    await update.message.reply_text(welcome_msg)
-    await update.message.reply_text(choose_msg, reply_markup=reply_markup)
-    welcome_text = (
-        f"💪 Welcome to GainzBot — where your journey to financial and physical strength begins!\n\n"
-        f"👋 Glad to have you onboard, {user.first_name}!\n\n"
-        f"📦 Setting up your training zone...\n"
-        f"✅ Account synced and active.\n\n"
-        f"📈 Trading Style: Beginner-Friendly | 🧠 Mindset Mode: On\n"
-        f"⚙️ Status: Online | Latency: Optimal\n\n"
-        f"🌍 Select your language:\n"
-        f"🇺🇸 English | 🇪🇸 Español (coming soon)\n\n"
-        f"👇 Tap an option below to begin:"
-
-    ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
-
-    ["💼 Risk Level", "🎚 Trade Size"],
-    ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
-    ["🌍 Change Language", "⬅️ Back"]
-        ["🏋️‍♂️ Fitness Tips", "💵 Trade Now"],
-        ["🧠 Daily Mindset Boost", "⚙️ Settings"]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-    await update.message.reply_text(welcome_text, reply_markup=reply_markup)
 
 # --- Handlers ---
 async def dashboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
