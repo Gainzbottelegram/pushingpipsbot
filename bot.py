@@ -312,10 +312,10 @@ async def learn(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "📚 Learn Mode:\nComing soon: bite-sized tips on trading, mindset & growth.\nStay tuned, champ! 💪"
 
 async def fitness_tips(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
     await update.message.reply_text(
-    f"🔥 Fitness Tip:\nDiscipline with your body reflects in your trading. Start your day with movement, even 10 pushups."
-)
+        f"🔥 *Fitness Tip:*\nDiscipline with your body reflects in your trading. Start your day with movement, even 10 pushups.",
+        parse_mode="Markdown"
+    )
 
 async def trade(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
