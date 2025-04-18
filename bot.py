@@ -212,6 +212,7 @@ import pandas as pd
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
 # Custom reply keyboard
+
 keyboard = [
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
     ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
