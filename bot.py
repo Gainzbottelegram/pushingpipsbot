@@ -344,6 +344,7 @@ async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "👇 Choose an option to adjust:",
         parse_mode="Markdown",
         reply_markup=reply_markup
+
     )
 
 
