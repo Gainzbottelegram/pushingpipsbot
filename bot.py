@@ -309,7 +309,9 @@ from kraken_client import get_price  # Make sure this is your custom function
 
 # Load token from .env
 
+
 # --- Start Command ---
+
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     lang_code = update.effective_user.language_code[:2]
@@ -320,6 +322,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(welcome_msg)
     await update.message.reply_text(choose_msg, reply_markup=reply_markup)
+
+    user = update.effective_user
     welcome_text = (
         f"💪 Welcome to GainzBot — where your journey to financial and physical strength begins!\n\n"
         f"👋 Glad to have you onboard, {user.first_name}!\n\n"
@@ -328,19 +332,21 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"📈 Trading Style: Beginner-Friendly | 🧠 Mindset Mode: On\n"
         f"⚙️ Status: Online | Latency: Optimal\n\n"
         f"🌍 Select your language:\n"
-        f"🇺🇸 English | 🇪🇸 Español (coming soon)\n\n"
+        f"🇬🇧 English | 🇪🇸 Español (coming soon)\n\n"
         f"👇 Tap an option below to begin:"
+    )
 
-    ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+    keyboard = [
+        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
+        ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
+        ["💼 Risk Level", "🎚 Trade Size"],
+        ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
+        ["🌍 Change Language", "⬅️ Back"]
+    ]
 
-    ["💼 Risk Level", "🎚 Trade Size"],
-    ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
-    ["🌍 Change Language", "⬅️ Back"]
-        ["🏋️‍♂️ Fitness Tips", "💵 Trade Now"],
-        ["🧠 Daily Mindset Boost", "⚙️ Settings"]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     await update.message.reply_text(welcome_text, reply_markup=reply_markup)
+
 
 # --- Handlers ---
 async def dashboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
