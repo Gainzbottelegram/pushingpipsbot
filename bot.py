@@ -359,7 +359,7 @@ async def learn(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def fitness_tips(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-    f"🔥 Fitness Tip:\n\"Discipline with your body reflects in your trading. Start your day with movement, even 10 pushups.\""
+    f"🔥 Fitness Tip:\nDiscipline with your body reflects in your trading. Start your day with movement, even 10 pushups."
 )
 
 async def trade(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -376,7 +376,6 @@ async def mindset_boost(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
     ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
-
     ["💼 Risk Level", "🎚 Trade Size"],
     ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
     ["🌍 Change Language", "⬅️ Back"]
