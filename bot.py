@@ -270,32 +270,26 @@ from kraken_client import get_price  # Make sure this is your custom function
 # Load token from .env
 
 
-# --- Start Command ---
-
-
+# --- /start command ---
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    lang_code = update.effective_user.language_code[:2]
+    user = update.effective_user
+    lang_code = user.language_code[:2]
     context.user_data["lang"] = lang_code
 
-    welcome_msg = t("welcome", lang_code)
-    choose_msg = t("choose_action", lang_code)
-
-    await update.message.reply_text(welcome_msg)
-    await update.message.reply_text(choose_msg, reply_markup=reply_markup)
-
-    user = update.effective_user
+    # Welcome text
     welcome_text = (
-        f"💪 Welcome to GainzBot — where your journey to financial and physical strength begins!\n\n"
-        f"👋 Glad to have you onboard, {user.first_name}! Lets get the Gainz in💪\n\n"
-        f"📦 Setting up your training zone...\n"
-        f"✅ Account synced and active.\n\n"
-        f"📈 Trading Style: Beginner-Friendly | 🧠 Mindset Mode: On\n"
+        f"💪 Welcome to *GainzBot* — where your journey to *financial* and *physical* strength begins!\n\n"
+        f"👋 Glad to have you onboard, {user.first_name}! Let’s get the gainz in!\n\n"
+        f"🧠 Setting up your training zone...\n"
+        f"✅ Account synced and active.\n"
+        f"📈 Trading Style: Beginner-Friendly | 💭 Mindset Mode: On\n"
         f"⚙️ Status: Online | Latency: Optimal\n\n"
         f"🌍 Select your language:\n"
-        f"🇬🇧 English | 🇪🇸 Español (coming soon)\n\n"
+        f"🇺🇸 English | 🇪🇸 Español (coming soon)\n\n"
         f"👇 Tap an option below to begin:"
     )
 
+    # Reply keyboard layout
     keyboard = [
         ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
         ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
@@ -305,8 +299,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]
 
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-
-    await update.message.reply_text(welcome_text, reply_markup=reply_markup)
+    
+    # Send welcome message
+    await update.message.reply_text(welcome_text, reply_markup=reply_markup, parse_mode="Markdown")
 
 
 # --- Handlers ---
