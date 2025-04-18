@@ -170,16 +170,17 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     welcome_msg = t("welcome", lang_code)
     choose_msg = t("choose_action", lang_code)
 
-    welcome_message = (
-        "Welcome to *GainzBot* – your personal coach for both *financial* and *physical* gains!💪\n\n"
-        "📊 *Dashboard* – Real-time trading insights, daily motivation, and fitness guidance.\n"
-        "📈 *Ready to level up?* Time to push some trades.\n"
-        "👇 Choose an action below to begin 👇"
-    )
-
     await update.message.reply_text(welcome_msg)
     await update.message.reply_text(choose_msg, reply_markup=reply_markup)
+
+    welcome_message = (
+        "💬 *Welcome to GainzBot* – your personal coach for both *financial* and *physical* gains!💪\n\n"
+        "📊 *Dashboard* – Real-time trading insights, daily motivation, and fitness guidance.\n"
+        "🚀 *Ready to level up?* Time to push some trades.\n"
+        "👇 *Choose an option below to begin* 👇"
+    )
     await update.message.reply_text(welcome_message, reply_markup=reply_markup, parse_mode="Markdown")
+
 
 # Button/text responses
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
