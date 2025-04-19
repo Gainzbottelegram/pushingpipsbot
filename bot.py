@@ -531,7 +531,9 @@ async def learn(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def fitness_tips(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "🔥 Fitness Tip:\n\"Discipline with your body reflects in your trading. Start your day with movement, even 10 pushups.\""
+    "🔥 *Fitness Tip:*\n_Discipline with your body reflects in your trading. Start your day with movement, even 10 pushups._",
+    parse_mode="Markdown"
+)
 
 async def trade(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
