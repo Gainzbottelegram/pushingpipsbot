@@ -472,13 +472,6 @@ import pandas as pd
 # Set up logging
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
-# Custom reply keyboard
-    ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
-    ["💼 Risk Level", "🎚 Trade Size"],
-    ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
-    ["🌍 Change Language", "⬅️ Back"]
-reply_markup = ReplyKeyboardMarkup(main_keyboard, resize_keyboard=True)
 
 # Price fetcher
 def get_price(pair="XXBTZUSD"):
