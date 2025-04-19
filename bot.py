@@ -575,6 +575,7 @@ async def risk_level(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "⚠️ Risk Level:\nSet your preferred trading risk.\n\n"
         "🟢 Low (Steady gains)\n🟡 Medium (Balanced approach)\n🔴 High (Aggressive strategies)\n\n"
         "Coach’s tip: Consistency beats chaos."
+    )
 
 async def trade_size(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
