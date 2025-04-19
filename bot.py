@@ -548,13 +548,12 @@ async def mindset_boost(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-    ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+    ["📊 Dashboard", "🎓 Learn", "🏋️‍♂️Fitness Tips"],
+    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️Settings"],
     ["💼 Risk Level", "🎚 Trade Size"],
     ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
-    ["🌍 Change Language", "⬅️ Back"]
-    ["💰 Trade Size", "🌙 Overnight Trading"],
     ["🏦 Auto Withdrawal", "🔙 Back to Main Menu"]
+]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     await update.message.reply_text(
