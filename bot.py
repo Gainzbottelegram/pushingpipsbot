@@ -209,16 +209,20 @@ import pandas as pd
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
 # Custom reply keyboard
+async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
+        ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
+        ["💼 Risk Level", "🎚 Trade Size"],
+        ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
+        ["🌍 Change Language", "⬅️ Back"]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
-keyboard = [
-    ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
-    ["📉 Risk Level", "💸 Trade Size"],
-    ["🌙 Overnight Mode", "🏦 Auto Withdrawals"],
-    ["🌍 Change Language", "🔙 Back"]
-]
-
-reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    await update.message.reply_text(
+        "🏠 Back at base. Choose your next move👇",
+        reply_markup=reply_markup
+    )
 
 # Price fetcher
 def get_price(pair="XXBTZUSD"):
