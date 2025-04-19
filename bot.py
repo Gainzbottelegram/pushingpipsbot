@@ -446,8 +446,6 @@ from kraken_client import get_price  # Make sure this is your custom function
 
 # Load token from .env
 
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-
     await update.message.reply_text(
         "🏠 Back at base. Choose your next move👇",
         reply_markup=reply_markup
