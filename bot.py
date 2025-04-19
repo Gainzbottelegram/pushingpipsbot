@@ -605,7 +605,7 @@ async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
     ["🌍 Change Language", "⬅️ Back"]
     ["🏋️‍♂️ Fitness Tips", "💵 Trade Now"],
-    ["🧠 Daily Mindset Boost", "⚙️ Settings]
+    ["🧠 Daily Mindset Boost", "⚙️ Setting"]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
