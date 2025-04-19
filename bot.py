@@ -8,6 +8,9 @@ from telegram.ext import (
     filters,
 )
 
+from telegram import ReplyKeyboardMarkup
+
+
 from dotenv import load_dotenv
 import krakenex
 import pandas as pd
@@ -599,13 +602,11 @@ async def auto_withdrawal(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-    ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
-    ["💼 Risk Level", "🎚 Trade Size"],
-    ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
-    ["🌍 Change Language", "⬅️ Back"]
-    ["🏋️‍♂️ Fitness Tips", "💵 Trade Now"],
-    ["🧠 Daily Mindset Boost", "⚙️ Setting"]
+        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
+        ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
+        ["💼 Risk Level", "🎚 Trade Size"],
+        ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
+        ["🌍 Change Language", "⬅️ Back"]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
