@@ -277,7 +277,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     lang_code = user.language_code[:2]
     context.user_data["lang"] = lang_code
 
-    # Welcome text
     welcome_text = (
         f"💪 Welcome to *GainzBot* — where your journey to *financial* and *physical* strength begins!\n\n"
         f"👋 Glad to have you onboard, {user.first_name}! Let’s get the gainz in!\n\n"
@@ -290,7 +289,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"👇 Tap an option below to begin:"
     )
 
-    # Reply keyboard layout
     keyboard = [
         ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
         ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
@@ -300,6 +298,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]
 
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    await update.message.reply_text(welcome_text, reply_markup=reply_markup)
     
     # Send welcome message
     await update.message.reply_text(welcome_text, reply_markup=reply_markup, parse_mode="Markdown")
