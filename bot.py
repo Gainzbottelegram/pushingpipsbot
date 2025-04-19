@@ -446,13 +446,6 @@ from kraken_client import get_price  # Make sure this is your custom function
 
 # Load token from .env
 
-
-    await update.message.reply_text(
-        "⚙️ Settings Panel:\nCustomize your trading style below. Your account, your rules. 💼\n\n"
-        "Choose an option:",
-        reply_markup=reply_markup
-    )
-
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     await update.message.reply_text(
