@@ -528,7 +528,7 @@ async def dashboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def learn(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "📚 Learn Mode:\nComing soon: bite-sized tips on trading, mindset & growth.\nStay tuned, champ! 💪"
-
+    )
 async def fitness_tips(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "🔥 *Fitness Tip:*\n_Discipline with your body reflects in your trading. Start your day with movement, even 10 pushups._",
