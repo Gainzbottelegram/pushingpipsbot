@@ -80,7 +80,6 @@ keyboard = [
 ]
 import krakenex
 import pandas as pd
-B
 # Language & Tip Support
 SUPPORTED_LANGUAGES = {
     "🇬🇧 English": "en",
