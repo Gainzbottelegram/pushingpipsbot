@@ -475,11 +475,9 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 # Custom reply keyboard
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
     ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
-
     ["💼 Risk Level", "🎚 Trade Size"],
     ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
     ["🌍 Change Language", "⬅️ Back"]
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
 reply_markup = ReplyKeyboardMarkup(main_keyboard, resize_keyboard=True)
 
 # Price fetcher
