@@ -160,10 +160,6 @@ def get_price(pair="XXBTZUSD"):
 LANGUAGE_OPTIONS = [["🇺🇸 English", "🇪🇸 Español", "🇷🇺 Русский"]]
 language_markup = ReplyKeyboardMarkup(LANGUAGE_OPTIONS, resize_keyboard=True, one_time_keyboard=True)
 
-# Handle "🌍 Language" button tap
-async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("🌍 Choose your preferred language:", reply_markup=language_markup)
-
 
 # Button/text responses
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -230,34 +226,6 @@ def get_price(pair="XXBTZUSD"):
     price = response["result"][pair]["c"][0]
     return f"${price}"
 
-
-# Message handler for menu buttons
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    user_message = update.message.text
-
-    if user_message == "📈 Trade Now":
-        price = get_price()
-        await update.message.reply_text(f"🚀 BTC/USD is currently at *{price}*", parse_mode="Markdown")
-
-    elif user_message == "🧠 Daily Mindset Boost":
-        mindset_quote = "Discipline is choosing what you want most over what you want now. Let’s get after it. 💥"
-        await update.message.reply_text(mindset_quote)
-
-    elif user_message == "🔥 Fitness Tips":
-        fitness_tip = "Hydration fuels your hustle. Drink water before you even feel thirsty. 🥤"
-        await update.message.reply_text(fitness_tip)
-
-    elif user_message == "📚 Learn":
-        await update.message.reply_text("📘 Coming soon: Trading 101 & Gym Hacks for Champions.")
-
-    elif user_message == "⚙️ Settings":
-        await update.message.reply_text("⚙️ Settings coming soon: Market type, risk level, auto withdrawal & more!")
-
-    elif user_message == "🏋️ Dashboard":
-        await update.message.reply_text("📊 Your dashboard will soon show open trades, gains, and goals. Stay tuned!")
-
-    else:
-        await update.message.reply_text("Not sure what that means, champ. Try hitting a button below.")
 
 # Run the bot
 if __name__ == "__main__":
@@ -427,32 +395,6 @@ async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
     await update.message.reply_text("🌍 Choose your preferred language:", reply_markup=language_markup)
 
 
-# Button/text responses
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    user_message = update.message.text
-
-    if user_message == "📈 Trade Now":
-        price = get_price()
-        await update.message.reply_text(f"*Current BTC/USD:* {price}", parse_mode="Markdown")
-
-    elif user_message == "🌍 Language":
-        await language_handler(update, context)
-
-    elif user_message == "🧠 Daily Mindset Boost":
-        await update.message.reply_text("💬 *Discipline is choosing what you want most over what you want now.* Let’s get after it. 🔥", parse_mode="Markdown")
-
-    elif user_message == "🏋️ Fitness Tips":
-        await update.message.reply_text("🏃 *Quick tip:* Hustle. Drink water before you even feel thirsty. 💧")
-
-    elif user_message == "🎓 Learn":
-        await update.message.reply_text("📘 Free eBook dropping soon: *Trading 101 & Gym Hacks for Champions.*")
-
-    elif user_message == "⚙️ Settings":
-        await update.message.reply_text("⚙️ *Settings coming soon:* Market type, risk level, auto withdrawal & more!")
-
-    else:
-        await update.message.reply_text("🤖 Not sure what that means, champ. Try hitting a button below.")
-
 # Start the bot
 if __name__ == "__main__":
     app.add_handler(CommandHandler("start", start))
@@ -483,34 +425,6 @@ def get_price(pair="XXBTZUSD"):
     return f"${price}"
 
 
-# Message handler for menu buttons
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    user_message = update.message.text
-
-    if user_message == "📈 Trade Now":
-        price = get_price()
-        await update.message.reply_text(f"🚀 BTC/USD is currently at *{price}*", parse_mode="Markdown")
-
-    elif user_message == "🧠 Daily Mindset Boost":
-        mindset_quote = "Discipline is choosing what you want most over what you want now. Let’s get after it. 💥"
-        await update.message.reply_text(mindset_quote)
-
-    elif user_message == "🔥 Fitness Tips":
-        fitness_tip = "Hydration fuels your hustle. Drink water before you even feel thirsty. 🥤"
-        await update.message.reply_text(fitness_tip)
-
-    elif user_message == "📚 Learn":
-        await update.message.reply_text("📘 Coming soon: Trading 101 & Gym Hacks for Champions.")
-
-    elif user_message == "⚙️ Settings":
-        await update.message.reply_text("⚙️ Settings coming soon: Market type, risk level, auto withdrawal & more!")
-
-    elif user_message == "🏋️ Dashboard":
-        await update.message.reply_text("📊 Your dashboard will soon show open trades, gains, and goals. Stay tuned!")
-
-    else:
-        await update.message.reply_text("Not sure what that means, champ. Try hitting a button below.")
-
 # Run the bot
 if __name__ == "__main__":
     app.add_handler(CommandHandler("start", start))
@@ -524,91 +438,12 @@ from kraken_client import get_price  # Make sure this is your custom function
 # Load token from .env
 
 
-# --- Handlers ---
-async def dashboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("📊 Dashboard is in progress.\nHere you’ll track PnL, active trades & more!")
-
-async def learn(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "📚 Learn Mode:\nComing soon: bite-sized tips on trading, mindset & growth.\nStay tuned, champ! 💪"
-    )
-async def fitness_tips(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "🔥 *Fitness Tip:*\n_Discipline with your body reflects in your trading. Start your day with movement, even 10 pushups._",
-        parse_mode="Markdown"
-    )
-
-async def trade(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    try:
-        price_data = get_price()
-        price = price_data['result']['XXBTZUSD']['c'][0]
-        await update.message.reply_text(f"💸 Current BTC/USD price: ${price}")
-    except Exception as e:
-        await update.message.reply_text(f"⚠️ Error fetching price: {e}")
-
-async def mindset_boost(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🧠 Boost:\n“Small steps every day beat huge leaps once in a while.”")
-
-async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [
-    ["📊 Dashboard", "🎓 Learn", "🏋️‍♂️Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️Settings"],
-    ["💼 Risk Level", "🎚 Trade Size"],
-    ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
-    ["🏦 Auto Withdrawal", "🔙 Back to Main Menu"]
-    ]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-
     await update.message.reply_text(
         "⚙️ Settings Panel:\nCustomize your trading style below. Your account, your rules. 💼\n\n"
         "Choose an option:",
         reply_markup=reply_markup
     )
 
-async def market_options(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "🌍 Market Options:\nChoose what you want to trade.\n\n"
-        "🔹 Crypto (BTC, ETH, etc.)\n"
-        "🔹 Forex (EUR/USD, GBP/JPY, etc.)\n\n"
-        "Your bot is 24/7 ready — just select your arena."
-    )
-
-async def risk_level(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "⚠️ Risk Level:\nSet your preferred trading risk.\n\n"
-        "🟢 Low (Steady gains)\n🟡 Medium (Balanced approach)\n🔴 High (Aggressive strategies)\n\n"
-        "Coach’s tip: Consistency beats chaos."
-    )
-
-async def trade_size(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "💰 Trade Size:\nDefine how much to risk per trade.\n\n"
-        "Examples:\n- $10 per trade\n- 5% of your balance\n\n"
-        "💡 Smart sizing protects your gains!"
-    )
-
-async def overnight_trading(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "🌙 Overnight Trading:\nShould GainzBot stay active while you sleep?\n\n"
-        "✅ Yes — I want round-the-clock trades\n❌ No — Pause during rest hours\n\n"
-        "💤 Recovery is growth — in life and in markets."
-    )
-
-async def auto_withdrawal(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "🔄 Auto Withdrawal:\nSet up automatic profit pulls.\n\n"
-        "💸 Options:\n- Weekly\n- Monthly\n- After 10% gain\n\n"
-        "💼 Secure the bag, consistently."
-    )
-
-async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [
-        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-        ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
-        ["💼 Risk Level", "🎚 Trade Size"],
-        ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
-        ["🌍 Change Language", "⬅️ Back"]
-    ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     await update.message.reply_text(
