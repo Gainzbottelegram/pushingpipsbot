@@ -283,16 +283,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"👋 Glad to have you onboard, {user.first_name}! Let’s get the gainz in!\n\n"
         f"🧠 Setting up your training zone...\n"
         f"✅ Account synced and active.\n"
-        f"📈 Trading Style: Beginner-Friendly | 💭 Mindset Mode: On\n"
-        f"⚙️ Status: Online | Latency: Optimal\n\n"
+        f"💵 Trading Style: Beginner-Friendly | 💭 Mindset Mode: On\n"
+        f"⚙ ️ Status: Online | Latency: Optimal\n\n"
         f"🌍 Select your language:\n"
-        f"🇺🇸 English | 🇪🇸 Español (coming soon)\n\n"
+        f"🇺 🇸 English | 🇪🇸 Español (coming soon)\n\n"
         f"👇 Tap an option below to begin:"
     )
 
     keyboard = [
         ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-        ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
+        ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
         ["💼 Risk Level", "🎚 Trade Size"],
         ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
         ["🌍 Change Language", "⬅️ Back"]
@@ -398,7 +398,7 @@ async def auto_withdrawal(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-        ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+        ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
@@ -476,7 +476,7 @@ from kraken_client import get_price  # Make sure this is your custom function
 async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-        ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+        ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
@@ -497,16 +497,16 @@ if __name__ == "__main__":
     app.add_handler(CommandHandler("trade", trade))
     app.add_handler(MessageHandler(filters.Regex("📊 Dashboard"), dashboard))
     app.add_handler(MessageHandler(filters.Regex("🎓 Learn"), learn))
-    app.add_handler(MessageHandler(filters.Regex("🏋️ Fitness Tips"), fitness_tips))
-    app.add_handler(MessageHandler(filters.Regex("📈 Trade Now"), trade))
+    app.add_handler(MessageHandler(filters.Regex("🏋 ️ Fitness Tips"), fitness_tips))
+    app.add_handler(MessageHandler(filters.Regex("💵 Trade Now"), trade))
     app.add_handler(MessageHandler(filters.Regex("🧠 Daily Mindset Boost"), mindset_boost))
-    app.add_handler(MessageHandler(filters.Regex("⚙️ Settings"), settings))
+    app.add_handler(MessageHandler(filters.Regex("⚙ ️ Settings"), settings))
     app.add_handler(MessageHandler(filters.Regex("📉 Market Options"), market_options))
     app.add_handler(MessageHandler(filters.Regex("💼 Risk Level"), risk_level))
-    app.add_handler(MessageHandler(filters.Regex("🎚 Trade Size"), trade_size))
+    app.add_handler(MessageHandler(filters.Regex("🎚 TTrade Size"), trade_size))
     app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnight_trading))
     app.add_handler(MessageHandler(filters.Regex("💸 Auto Withdrawals"), auto_withdrawal))
-    app.add_handler(MessageHandler(filters.Regex("⬅️ Back to Main Menu"), back_to_main_menu))
+    app.add_handler(MessageHandler(filters.Regex("⬅ ️ Back to Main Menu"), back_to_main_menu))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
     app.run_polling()
