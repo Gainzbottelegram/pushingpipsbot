@@ -167,10 +167,6 @@ language_markup = ReplyKeyboardMarkup(LANGUAGE_OPTIONS, resize_keyboard=True, on
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user_message = update.message.text
 
-    if user_message == "💵 Trade Now":
-        price = get_price()
-        await update.message.reply_text(f"*Current BTC/USD:* {price}", parse_mode="Markdown")
-
     elif user_message == "🌍 Language":
         await language_handler(update, context)
 
@@ -323,14 +319,6 @@ async def fitness_tips(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"🔥 *Fitness Tip:*\nDiscipline with your body reflects in your trading. Start your day with movement, even 10 pushups.",
         parse_mode="Markdown"
     )
-
-async def trade(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    try:
-        price_data = get_price()
-        price = price_data['result']['XXBTZUSD']['c'][0]
-        await update.message.reply_text(f"💸 Current BTC/USD price: ${price}")
-    except Exception as e:
-        await update.message.reply_text(f"⚠️ Error fetching price: {e}")
 
 
 async def mindset_boost(update: Update, context: ContextTypes.DEFAULT_TYPE):
