@@ -84,7 +84,7 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 # Custom reply keyboard
 keyboard = [
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+    ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
 ]
 import krakenex
 import pandas as pd
@@ -199,16 +199,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"👋 Glad to have you onboard, {user.first_name}! Let’s get the gainz in!\n\n"
         f"🧠 Setting up your training zone...\n"
         f"✅ Account synced and active.\n"
-        f"📈 Trading Style: Beginner-Friendly | 💭 Mindset Mode: On\n"
-        f"⚙️ Status: Online | Latency: Optimal\n\n"
+        f"💵 Trading Style: Beginner-Friendly | 💭 Mindset Mode: On\n"
+        f"⚙ ️ Status: Online | Latency: Optimal\n\n"
         f"🌍 Select your language:\n"
-        f"🇺🇸 English | 🇪🇸 Español (coming soon)\n\n"
+        f"🇺 🇸 English | 🇪🇸 Español (coming soon)\n\n"
         f"👇 Tap an option below to begin:"
     )
 
     keyboard = [
         ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-        ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
+        ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
         ["💼 Risk Level", "🎚 Trade Size"],
         ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
         ["🌍 Change Language", "⬅️ Back"]
@@ -241,7 +241,7 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-        ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
+        ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
         ["💼 Risk Level", "🎚 Trade Size"],
         ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
         ["🌍 Change Language", "⬅️ Back"]
