@@ -146,7 +146,7 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 # Custom reply keyboard
 keyboard = [
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
+    ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
     ["💼 Risk Level", "🎚 Trade Size"],
     ["🌙 Overnight Mode", "💸 Auto Withdrawals"]
 ]
@@ -167,7 +167,7 @@ language_markup = ReplyKeyboardMarkup(LANGUAGE_OPTIONS, resize_keyboard=True, on
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user_message = update.message.text
 
-    if user_message == "📈 Trade Now":
+    if user_message == "💵 Trade Now":
         price = get_price()
         await update.message.reply_text(f"*Current BTC/USD:* {price}", parse_mode="Markdown")
 
