@@ -28,6 +28,24 @@ kraken = krakenex.API()
 kraken.key = KRAKEN_API_KEY
 kraken.secret = KRAKEN_API_SECRET
 
+async def check_breakout(pair="XBTUSD", interval="15", threshold=100):
+    try:
+        ohlc = kraken.query_public("OHLC", {"pair": pair, "interval": interval})
+        if ohlc.get("error"):
+            return f"Kraken Error: {ohlc['error']}"
+
+        candles = ohlc["result"][list(ohlc["result"].keys())[0]]
+        highs = [float(c[2]) for c in candles[-3:]]  # Last 3 highs
+        lows = [float(c[3]) for c in candles[-3:]]   # Last 3 lows
+
+        high_breakout = max(highs) - min(lows)
+        if high_breakout >= threshold:
+            return f"📈 Breakout detected on {pair}! Price moved ${high_breakout:.2f}"
+        else:
+            return f"No breakout yet. Movement: ${high_breakout:.2f}"
+    except Exception as e:
+        return f"⚠️ Error checking breakout: {str(e)}"
+
 
 # Step 3: Set up the webhook route
 @app.route("/YOUR_WEBHOOK_PATH", methods=["POST"])
