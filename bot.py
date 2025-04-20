@@ -162,12 +162,11 @@ def get_price(pair="XXBTZUSD"):
 LANGUAGE_OPTIONS = [["🇺🇸 English", "🇪🇸 Español", "🇷🇺 Русский"]]
 language_markup = ReplyKeyboardMarkup(LANGUAGE_OPTIONS, resize_keyboard=True, one_time_keyboard=True)
 
-
 # Button/text responses
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user_message = update.message.text
 
-    elif user_message == "🌍 Language":
+    if user_message == "🌍 Language":
         await language_handler(update, context)
 
     elif user_message == "🏋️ Fitness Tips":
@@ -176,7 +175,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     elif user_message == "🎓 Learn":
         await update.message.reply_text("📘 Free eBook dropping soon: *Trading 101 & Gym Hacks for Champions.*")
 
-    elif user_message == "⚙ ️ Settings":
+    elif user_message == "⚙️ Settings":
         await update.message.reply_text("⚙️ *Settings coming soon:* Market type, risk level, auto withdrawal & more!")
 
     elif user_message == "📊 Dashboard":
@@ -184,6 +183,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
     else:
         await update.message.reply_text("🤖 Not sure what that means, champ. Try hitting a button below.")
+
 # Define the /start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
