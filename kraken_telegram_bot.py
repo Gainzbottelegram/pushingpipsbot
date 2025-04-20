@@ -94,6 +94,7 @@ async def trade_callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 # --- Fallback text handler ---
+
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
     if text == "💵 Trade Now":
@@ -103,18 +104,21 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # --- Main ---
 def main():
+    global application
     application = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
 
     # Command + button handlers
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CallbackQueryHandler(trade_callbacks))
+    application.add_handler(MessageHandler(filters.Regex("💵 Trade Now"), trade_now_handler))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-    # Background breakout checker
+    # Background breakout checker (24/7 trading logic)
     application.create_task(breakout_loop(application))
 
-    print("⚡ GainzBot Kraken system is live!")
+    print("⚡️ GainzBot Kraken system is live!")
     application.run_polling()
+
 
 if __name__ == "__main__":
     main()
