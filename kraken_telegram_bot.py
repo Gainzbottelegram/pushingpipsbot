@@ -66,9 +66,10 @@ async def trade_now_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("🏧 Withdraw", callback_data="withdraw_info")],
         [InlineKeyboardButton("🔙 Back", callback_data="go_back")]
     ]
-    markup = InlineKeyboardMarkup(keyboard)
+    reply_ markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
-        "📅 Ready to move funds? Pick an option:", reply_markup=markup
+        "💰 Ready to move some funds?\n\nChose one of the options below to proceed:",
+        reply_markup=reply_markup
     )
 
 # --- Callback Handler for Deposit/Withdraw ---
