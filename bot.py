@@ -477,3 +477,10 @@ app.add_handler(MessageHandler(filters.Regex("🔄 Auto Withdrawal"), auto_withd
 app.add_handler(MessageHandler(filters.Regex("🔙 Back to Main Menu"), back_to_main_menu))
 # --- Run Bot ---
 app.run_polling()
+
+if __name__ == "__main__":
+    app = ApplicationBuilder().token(TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    app.run_polling()
+
