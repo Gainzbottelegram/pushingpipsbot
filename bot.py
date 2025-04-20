@@ -180,7 +180,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     elif user_message == "🎓 Learn":
         await update.message.reply_text("📘 Free eBook dropping soon: *Trading 101 & Gym Hacks for Champions.*")
 
-    elif user_message == "⚙️ Settings":
+    elif user_message == "⚙ ️ Settings":
         await update.message.reply_text("⚙️ *Settings coming soon:* Market type, risk level, auto withdrawal & more!")
 
     elif user_message == "📊 Dashboard":
@@ -458,29 +458,28 @@ async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 # --- Bot Setup ---
-app = ApplicationBuilder().token(TOKEN).build()
-
-# Command + Button Handlers
-app.add_handler(CommandHandler("start", start))
-app.add_handler(CommandHandler("trade", trade))
-app.add_handler(MessageHandler(filters.Regex("📊 Dashboard"), dashboard))
-app.add_handler(MessageHandler(filters.Regex("📚 Learn"), learn))
-app.add_handler(MessageHandler(filters.Regex("🏋️‍♂️ Fitness Tips"), fitness_tips))
-app.add_handler(MessageHandler(filters.Regex("💵 Trade Now"), trade))
-app.add_handler(MessageHandler(filters.Regex("🧠 Daily Mindset Boost"), mindset_boost))
-app.add_handler(MessageHandler(filters.Regex("⚙️ Settings"), settings))
-app.add_handler(MessageHandler(filters.Regex("🌍 Market Options"), market_options))
-app.add_handler(MessageHandler(filters.Regex("⚠️ Risk Level"), risk_level))
-app.add_handler(MessageHandler(filters.Regex("💰 Trade Size"), trade_size))
-app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnight_trading))
-app.add_handler(MessageHandler(filters.Regex("🔄 Auto Withdrawal"), auto_withdrawal))
-app.add_handler(MessageHandler(filters.Regex("🔙 Back to Main Menu"), back_to_main_menu))
-# --- Run Bot ---
-app.run_polling()
-
 if __name__ == "__main__":
+    load_dotenv()
+    TOKEN = os.getenv("TELEGRAM_TOKEN")
+
     app = ApplicationBuilder().token(TOKEN).build()
+
+    # Add all handlers
     app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("trade", trade))
+    app.add_handler(MessageHandler(filters.Regex("📊 Dashboard"), dashboard))
+    app.add_handler(MessageHandler(filters.Regex("🎓 Learn"), learn))
+    app.add_handler(MessageHandler(filters.Regex("🏋️ Fitness Tips"), fitness_tips))
+    app.add_handler(MessageHandler(filters.Regex("📈 Trade Now"), trade))
+    app.add_handler(MessageHandler(filters.Regex("🧠 Daily Mindset Boost"), mindset_boost))
+    app.add_handler(MessageHandler(filters.Regex("⚙️ Settings"), settings))
+    app.add_handler(MessageHandler(filters.Regex("📉 Market Options"), market_options))
+    app.add_handler(MessageHandler(filters.Regex("💼 Risk Level"), risk_level))
+    app.add_handler(MessageHandler(filters.Regex("🎚 Trade Size"), trade_size))
+    app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnight_trading))
+    app.add_handler(MessageHandler(filters.Regex("💸 Auto Withdrawals"), auto_withdrawal))
+    app.add_handler(MessageHandler(filters.Regex("⬅️ Back to Main Menu"), back_to_main_menu))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+
     app.run_polling()
 
