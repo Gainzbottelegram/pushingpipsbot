@@ -372,12 +372,10 @@ async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-    await update.message.reply_text("⬅️ Back at base. Choose your next move 👇", reply_markup=reply_markup)
 
     await update.message.reply_text(
-    "⬅️ Back at base. No excuses. Choose your next move wisely. 💼🔥",
-    reply_markup=reply_markup
-
+        "⬅️ Back at base. No excuses. Choose your next move wisely. 💼🔥",
+        reply_markup=reply_markup
     )
 
 # --- Bot Setup ---
@@ -445,6 +443,13 @@ if __name__ == "__main__":
 from kraken_client import get_price  # Make sure this is your custom function
 
 # Load token from .env
+
+async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
+        ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     await update.message.reply_text(
         "🏠 Back at base. Choose your next move👇",
