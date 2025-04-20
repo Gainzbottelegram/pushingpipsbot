@@ -188,6 +188,34 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
     else:
         await update.message.reply_text("🤖 Not sure what that means, champ. Try hitting a button below.")
+# Define the /start command
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user = update.effective_user
+    lang_code = user.language_code[:2]
+    context.user_data["lang"] = lang_code
+
+    welcome_text = (
+        f"💪 Welcome to *GainzBot* — where your journey to *financial* and *physical* strength begins!\n\n"
+        f"👋 Glad to have you onboard, {user.first_name}! Let’s get the gainz in!\n\n"
+        f"🧠 Setting up your training zone...\n"
+        f"✅ Account synced and active.\n"
+        f"📈 Trading Style: Beginner-Friendly | 💭 Mindset Mode: On\n"
+        f"⚙️ Status: Online | Latency: Optimal\n\n"
+        f"🌍 Select your language:\n"
+        f"🇺🇸 English | 🇪🇸 Español (coming soon)\n\n"
+        f"👇 Tap an option below to begin:"
+    )
+
+    keyboard = [
+        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
+        ["📈 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
+        ["💼 Risk Level", "🎚 Trade Size"],
+        ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
+        ["🌍 Change Language", "⬅️ Back"]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+
+    await update.message.reply_text(welcome_text, reply_markup=reply_markup, parse_mode="Markdown")
 
 # Load environment variables
 load_dotenv()
