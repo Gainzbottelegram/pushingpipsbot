@@ -6,7 +6,7 @@ from telegram.ext import ContextTypes
 
 load_dotenv()
 api = krakenex.API()
-api.load_key("kraken.key")  # Or use os.getenv if you're using .env
+api.load_key("myuser.key")  # Or use os.getenv if you're using .env
 
 breakout_running = False
 high_trigger = 72000.0
