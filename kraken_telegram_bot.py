@@ -66,7 +66,7 @@ async def trade_now_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("🏧 Withdraw", callback_data="withdraw_info")],
         [InlineKeyboardButton("🔙 Back", callback_data="go_back")]
     ]
-    reply_ markup = InlineKeyboardMarkup(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
         "💰 Ready to move some funds?\n\nChose one of the options below to proceed:",
         reply_markup=reply_markup
