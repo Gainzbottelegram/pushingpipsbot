@@ -6,7 +6,7 @@ from telegram.ext import ContextTypes
 
 load_dotenv()
 api = krakenex.API()
-api.load_key("kraken.key")  # Or use API keys from environment variables
+api.load_key("kraken.key")  # Or use os.getenv if you're using .env
 
 breakout_running = False
 high_trigger = 72000.0
@@ -14,9 +14,11 @@ low_trigger = 69000.0
 pair = "XXBTZUSD"
 asset = "XXBT"
 
+# ✅ Main handler for when user presses "📈 Finance"
 async def handle_finance(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("📊 Finance activated.\nUse ⚡ Activate Trading to begin scanning for breakout trades.")
+    await update.message.reply_text("📊 Finance activated.\nUse 💰 Trade Now to begin breakout scanning and auto trading.")
 
+# ✅ Triggers background breakout monitoring and auto-trading
 async def activate_trading_bot(update: Update, context: ContextTypes.DEFAULT_TYPE):
     global breakout_running
     if breakout_running:
@@ -24,12 +26,11 @@ async def activate_trading_bot(update: Update, context: ContextTypes.DEFAULT_TYP
         return
 
     breakout_running = True
-    await update.message.reply_text("📡 GainzBot is watching BTC/USD for breakout...\nLive trades will auto-execute with max 20% risk.")
+    await update.message.reply_text("📡 GainzBot is now watching BTC/USD...\nLive trades will auto-execute using 20% of balance.")
 
     async def monitor_breakout():
         global breakout_running
         try:
-            # Fetch account balance
             balance_data = api.query_private('Balance')
             usd_balance = float(balance_data['result'].get("ZUSD", 0))
 
@@ -38,9 +39,9 @@ async def activate_trading_bot(update: Update, context: ContextTypes.DEFAULT_TYP
                 breakout_running = False
                 return
 
-            risk_equity = usd_balance * 0.20  # Max 20% risk
+            risk_equity = usd_balance * 0.20
 
-            # Monitor loop
+            import asyncio
             while breakout_running:
                 response = api.query_public('Ticker', {'pair': pair})
                 price = float(response['result'][pair]['c'][0])
@@ -64,12 +65,11 @@ async def activate_trading_bot(update: Update, context: ContextTypes.DEFAULT_TYP
     import asyncio
     asyncio.create_task(monitor_breakout())
 
+# ✅ Executes a live market order with SL & TP
 async def place_trade(update: Update, price: float, direction: str, risk_amount: float):
     try:
-        # Calculate volume in BTC to trade
         volume = round(risk_amount / price, 6)
 
-        # Set stop loss 1.5% away, take profit 2.5% away
         if direction == "buy":
             stop_price = round(price * 0.985, 2)
             profit_price = round(price * 1.025, 2)
