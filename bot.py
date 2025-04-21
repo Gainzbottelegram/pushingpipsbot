@@ -15,7 +15,7 @@ from telegram.ext import (
     ContextTypes,
     filters,
 )
-
+y
 from telegram import ReplyKeyboardMarkup
 
 
@@ -166,7 +166,11 @@ LANGUAGE_OPTIONS = [["🇺🇸 English", "🇪🇸 Español", "🇷🇺 Русс
 language_markup = ReplyKeyboardMarkup(LANGUAGE_OPTIONS, resize_keyboard=True, one_time_keyboard=True)
 
 # Button/text responses
-from modules.finance import handle_finance, activate_trading_bot
+import importlib
+finance = importlib.import_module("modules.finance")
+handle_finance = finance.handle_finance
+activate_trading_bot = finance.activate_trading_bot
+
 from modules.fitness import handle_fitness
 from modules.education import handle_education
 from modules.mentor import handle_mentor
