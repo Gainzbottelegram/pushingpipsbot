@@ -6,6 +6,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import krakenex
 import pandas as pd
 from dotenv import load_dotenv
+from modules.finance import check_balance
 
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import (
@@ -28,7 +29,6 @@ import pandas as pd
 SUPPORTED_LANGUAGES = {
     "🇬🇧 English": "en",
     "🇪🇸 Español": "es",
-    "🇷🇺 Русский": "ru",
     "🇫🇷 Français": "fr",
     "🇩🇪 Deutsch": "de"
 }
@@ -243,6 +243,8 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 if __name__ == "__main__":
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("balance", check_balance))
+
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     app.run_polling()
 
