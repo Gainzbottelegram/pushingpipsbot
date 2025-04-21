@@ -163,23 +163,34 @@ LANGUAGE_OPTIONS = [["🇺🇸 English", "🇪🇸 Español", "🇷🇺 Русс
 language_markup = ReplyKeyboardMarkup(LANGUAGE_OPTIONS, resize_keyboard=True, one_time_keyboard=True)
 
 # Button/text responses
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    user_message = update.message.text
+from modules.finance import handle_finance, activate_trading_bot
+from modules.fitness import handle_fitness
+from modules.education import handle_education
+from modules.mentor import handle_mentor
 
-    if user_message == "🌍 Language":
-        await language_handler(update, context)
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = update.message.text
 
-    elif user_message == "🏋️ Fitness Tips":
-        await update.message.reply_text("🏃 *Quick tip:* Hustle. Drink water before you even feel thirsty. 💧")
+    if text == "📊 Dashboard":
+        await update.message.reply_text("📈 Dashboard coming soon. You'll be able to view trade/flex stats here.")
 
-    elif user_message == "🎓 Learn":
-        await update.message.reply_text("📘 Free eBook dropping soon: *Trading 101 & Gym Hacks for Champions.*")
+    elif text == "🎓 Learn":
+        await handle_education(update, context)
 
-    elif user_message == "⚙️ Settings":
-        await update.message.reply_text("⚙️ *Settings coming soon:* Market type, risk level, auto withdrawal & more!")
+    elif text == "🏋️ Fitness Tips":
+        await handle_fitness(update, context)
 
-    elif user_message == "📊 Dashboard":
-        await update.message.reply_text("📊 Your dashboard will soon show open trades, gainz, and goals. Stay tuned!")
+    elif text == "💰 Trade Now":
+        await activate_trading_bot(update, context)
+
+    elif text == "🧠 Daily Mindset Boost":
+        await handle_mentor(update, context)
+
+    elif text == "⚙️ Settings":
+        await update.message.reply_text("⚙️ Settings menu coming soon: Change risk, language, and trading style.")
+
+    elif text == "📉 Risk Level":
+        await update.message.reply_text("🛡 Max risk per trade is currently set to 20% of your equity. Auto-sizing is enabled.")
 
     else:
         await update.message.reply_text("🤖 Not sure what that means, champ. Try hitting a button below.")
