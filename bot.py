@@ -166,8 +166,14 @@ LANGUAGE_OPTIONS = [["🇺🇸 English", "🇪🇸 Español", "🇷🇺 Русс
 language_markup = ReplyKeyboardMarkup(LANGUAGE_OPTIONS, resize_keyboard=True, one_time_keyboard=True)
 
 # Button/text responses
-import importlib
-finance = importlib.import_module("modules.finance")
+import importlib.util
+import pathlib
+
+finance_path = pathlib.Path(__file__).parent / "modules" / "finance.py"
+spec = importlib.util.spec_from_file_location("finance", finance_path)
+finance = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(finance)
+
 handle_finance = finance.handle_finance
 activate_trading_bot = finance.activate_trading_bot
 
