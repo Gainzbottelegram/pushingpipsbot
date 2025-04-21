@@ -37,14 +37,12 @@ translations = {
     "welcome": {
         "en": "Welcome to GainzBot 💪 Let's level up your body, bank, and brain.",
         "es": "Bienvenido a GainzBot 💪 Vamos a mejorar tu cuerpo, mente y billetera.",
-        "ru": "Добро пожаловать в GainzBot 💪 Прокачаем тело, кошелёк и ум.",
         "fr": "Bienvenue sur GainzBot 💪 Élevons ton corps, ton portefeuille et ton esprit.",
         "de": "Willkommen bei GainzBot 💪 Lass uns Körper, Geld und Geist verbessern."
     },
     "choose_action": {
         "en": "Choose your next move:",
         "es": "Elige tu siguiente paso:",
-        "ru": "Выберите следующее действие:",
         "fr": "Choisis ta prochaine étape :",
         "de": "Wähle deinen nächsten Schritt:"
     }
@@ -95,7 +93,6 @@ import pandas as pd
 SUPPORTED_LANGUAGES = {
     "🇬🇧 English": "en",
     "🇪🇸 Español": "es",
-    "🇷🇺 Русский": "ru",
     "🇫🇷 Français": "fr",
     "🇩🇪 Deutsch": "de"
 }
@@ -104,14 +101,12 @@ translations = {
     "welcome": {
         "en": "Welcome to GainzBot 💪 Let's level up your body, bank, and brain.",
         "es": "Bienvenido a GainzBot 💪 Vamos a mejorar tu cuerpo, mente y billetera.",
-        "ru": "Добро пожаловать в GainzBot 💪 Прокачаем тело, кошелёк и ум.",
         "fr": "Bienvenue sur GainzBot 💪 Élevons ton corps, ton portefeuille et ton esprit.",
         "de": "Willkommen bei GainzBot 💪 Lass uns Körper, Geld und Geist verbessern."
     },
     "choose_action": {
         "en": "Choose your next move:",
         "es": "Elige tu siguiente paso:",
-        "ru": "Выберите следующее действие:",
         "fr": "Choisis ta prochaine étape :",
         "de": "Wähle deinen nächsten Schritt:"
     }
@@ -162,7 +157,7 @@ def get_price(pair="XXBTZUSD"):
     return f"${response['result'][pair]['c'][0]}"
 
 # Language keyboard options
-LANGUAGE_OPTIONS = [["🇺🇸 English", "🇪🇸 Español", "🇷🇺 Русский"]]
+LANGUAGE_OPTIONS = [["🇺🇸 English", "🇪🇸 Esp"]]
 language_markup = ReplyKeyboardMarkup(LANGUAGE_OPTIONS, resize_keyboard=True, one_time_keyboard=True)
 
 # Button/text responses
@@ -193,7 +188,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif text == "🏋️ Fitness Tips":
         await handle_fitness(update, context)
 
-    elif text == "💰 Trade Now":
+    elif text == "💵 Trade Now":
         await activate_trading_bot(update, context)
 
     elif text == "🧠 Daily Mindset Boost":
