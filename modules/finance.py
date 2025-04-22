@@ -47,7 +47,17 @@ async def activate_trading_bot(update: Update, context: ContextTypes.DEFAULT_TYP
             import asyncio
             while breakout_running:
                 response = api.query_public('Ticker', {'pair': pair})
-                price = float(response['result'][pair]['c'][0])
+
+
+# Defensive handling for missing or error response
+if 'result' not in response or pair not in response['result']:
+    await update.message.reply_text("⚠️ No price available. Kraken API returned an unexpected response.")
+    breakout_running = False
+    return
+
+print(f"[GAINZBOT] Price response: {response}")
+
+price = float(response['result'][pair]['c'][0])
 
                 if price > high_trigger:
                     await update.message.reply_text(f"🚀 Breakout UP! BTC/USD hit ${price}")
