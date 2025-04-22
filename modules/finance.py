@@ -35,6 +35,7 @@ async def activate_trading_bot(update: Update, context: ContextTypes.DEFAULT_TYP
         global breakout_running
         try:
             balance_data = api.query_private('Balance')
+            print("[DEBUG] Kraken balance data:", balance_data)
             usd_balance = float(balance_data['result'].get("ZUSD", 0))
 
             if usd_balance == 0:
