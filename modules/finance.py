@@ -6,7 +6,10 @@ from telegram.ext import ContextTypes
 
 load_dotenv()
 
-api = krakenex.API(os.getenv("MYUSER_KRAKEN_KEY"), os.getenv("MYUSER_KRAKEN_SECRET"))
+api = krakenex.API(
+    os.getenv("KRAKEN_API_KEY"),
+    os.getenv("KRAKEN_API_SECRET")
+)
 
 breakout_running = False
 high_trigger = 72000.0
