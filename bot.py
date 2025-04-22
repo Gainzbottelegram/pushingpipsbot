@@ -9,9 +9,9 @@ from dotenv import load_dotenv
 from modules.finance import check_balance
 from telegram.ext import CommandHandler
 from modules.main import handle_main
-from modules.train import handle_brain
-from modules.trade import handle_train 
-from modules.brain import handle_trade
+from modules.train import handle_train
+from modules.brain import handle_brain 
+from modules.trade import handle_trade
 
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import (
@@ -342,7 +342,7 @@ async def dashboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def learn(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "📚 Learn Mode:\nComing soon: bite-sized tips on trading, mindset & growth.\nStay tuned, champ! 💪")
+        "📚 Learn Mode:\nComing soon: bite-sized tips on trading, mindset & growth.\nStay tuned!💪")
 
 async def fitness_tips(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
