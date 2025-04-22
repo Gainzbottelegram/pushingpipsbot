@@ -37,25 +37,28 @@ async def activate_trading_bot(update: Update, context: ContextTypes.DEFAULT_TYP
             balance_data = api.query_private('Balance')
             print(f"[GAINZBOT DEBUG] Raw Balance Response: {balance_data}")
 
-preferred_currencies = ["ZUSD", "ZGBP", "USDT", "ZEUR"]
-usd_balance = 0.0
-currency_used = None
+try:
+    balance_data = api.query_private('Balance')
+    print(f"[GAINZBOT DEBUG] Raw Balance Response: {balance_data}")
 
-for currency in preferred_currencies:
-    if currency in balance_data["result"]:
-        usd_balance = float(balance_data["result"][currency])
-        currency_used = currency
-        break
+    preferred_currencies = ["ZUSD", "ZGBP", "USDT", "ZEUR"]
+    usd_balance = 0.0
+    currency_used = None
 
-print(f"[GAINZBOT DEBUG] Balance Detected: {usd_balance} in {currency_used}")
+    for currency in preferred_currencies:
+        if currency in balance_data["result"]:
+            usd_balance = float(balance_data["result"][currency])
+            currency_used = currency
+            break
 
+    print(f"[GAINZBOT DEBUG] Balance Detected: {usd_balance} in {currency_used}")
 
-if usd_balance == 0:
-    await update.message.reply_text(
-        "❌ No balance available in USD, GBP, USDT, or EUR. Add funds to begin trading."
-    )
-    breakout_running = False
-    return
+    if usd_balance == 0:
+        await update.message.reply_text(
+            "❌ No balance available in USD, GBP, USDT, or EUR. Add funds to begin trading."
+        )
+        breakout_running = False
+        return
 
             risk_equity = usd_balance * 0.20
 
