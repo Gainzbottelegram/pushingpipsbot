@@ -35,8 +35,11 @@ async def activate_trading_bot(update: Update, context: ContextTypes.DEFAULT_TYP
         global breakout_running
         try:
             balance_data = api.query_private('Balance')
-            print("[DEBUG] Kraken balance data:", balance_data)
+            print(f"[GAINZBOT DEBUG] Raw Balance Response: {balance_data}")
+
             usd_balance = float(balance_data['result'].get("ZUSD", 0))
+            print(f"[GAINZBOT DEBUG] USD Balance Detected: {usd_balance}")
+
 
             if usd_balance == 0:
                 await update.message.reply_text("❌ No USD balance available. Add funds to begin trading.")
