@@ -53,7 +53,7 @@ async def activate_trading_bot(update: Update, context: ContextTypes.DEFAULT_TYP
                 await update.message.reply_text("⚠️ No price available. Kraken API returned an unexpected response.")
                 breakout_running = False
                 return
-
+  
                 print(f"[GAINZBOT] Price response: {response}")
 
                 price = float(response['result'][pair]['c'][0])
