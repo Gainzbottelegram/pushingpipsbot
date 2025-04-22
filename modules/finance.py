@@ -128,11 +128,24 @@ async def place_trade(update: Update, price: float, direction: str, risk_amount:
 async def check_balance(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         balance_data = api.query_private('Balance')
-        usd_balance = balance_data['result'].get("ZUSD", "0")
-        btc_balance = balance_data['result'].get("XXBT", "0")
+        preferred_currencies = ["ZUSD", "ZGBP", "USDT", "ZEUR"]
+        fiat_balance = 0.0
+        currency_used = None
+
+        for currency in preferred_currencies:
+            if currency in balance_data["result"]:
+                fiat_balance = float(balance_data["result"][currency])
+                currency_used = currency
+                break
+
+        btc_balance = balance_data["result"].get("XXBT", "0")
+
         await update.message.reply_text(
-            f"💼 Your Kraken Balance:\n\n💵 USD: ${usd_balance}\n₿ BTC: {btc_balance}"
+            f"💼 Your Kraken Balance:\n\n"
+            f"{currency_used}: {fiat_balance}\n"
+            f"₿ BTC: {btc_balance}"
         )
+
     except Exception as e:
         await update.message.reply_text(f"⚠️ Could not fetch balance: {str(e)}")
 
