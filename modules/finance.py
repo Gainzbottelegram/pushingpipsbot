@@ -49,7 +49,7 @@ async def activate_trading_bot(update: Update, context: ContextTypes.DEFAULT_TYP
                 response = api.query_public('Ticker', {'pair': pair})
 
 
-                if 'result' not in response or pair not in response['result']:
+            if 'result' not in response or pair not in response['result']:
                 await update.message.reply_text("⚠️ No price available. Kraken API returned an unexpected response.")
                 breakout_running = False
                 return
