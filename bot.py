@@ -7,6 +7,11 @@ import krakenex
 import pandas as pd
 from dotenv import load_dotenv
 from modules.finance import check_balance
+from telegram.ext import CommandHandler
+from modules.main import handle_main
+from modules.train import handle_brain
+from modules.trade import handle_train 
+from modules.brain import handle_trade
 
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import (
@@ -244,6 +249,10 @@ if __name__ == "__main__":
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("balance", check_balance))
+    app.add_handler(CommandHandler("main", handle_main))
+    app.add_handler(CommandHandler("train", handle_train))
+    app.add_handler(CommandHandler("trade", handle_trade))
+    app.add_handler(CommandHandler("brain", handle_brain))
 
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     app.run_polling()
