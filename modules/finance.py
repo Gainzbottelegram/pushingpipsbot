@@ -31,66 +31,61 @@ async def activate_trading_bot(update: Update, context: ContextTypes.DEFAULT_TYP
     breakout_running = True
     await update.message.reply_text("📡 GainzBot is now watching BTC/USD...\nLive trades will auto-execute using 20% of balance.")
 
-    async def monitor_breakout():
-        global breakout_running
-        try:
-            balance_data = api.query_private('Balance')
-            print(f"[GAINZBOT DEBUG] Raw Balance Response: {balance_data}")
+async def monitor_breakout():
+    global breakout_running
+    breakout_running = True
 
-try:
-    balance_data = api.query_private('Balance')
-    print(f"[GAINZBOT DEBUG] Raw Balance Response: {balance_data}")
+    try:
+        balance_data = api.query_private('Balance')
+        print(f"[GAINZBOT DEBUG] Raw Balance Response: {balance_data}")
 
-    preferred_currencies = ["ZUSD", "ZGBP", "USDT", "ZEUR"]
-    usd_balance = 0.0
-    currency_used = None
+        preferred_currencies = ["ZUSD", "ZGBP", "USDT", "ZEUR"]
+        usd_balance = 0.0
+        currency_used = None
 
-    for currency in preferred_currencies:
-        if currency in balance_data["result"]:
-            usd_balance = float(balance_data["result"][currency])
-            currency_used = currency
-            break
+        for currency in preferred_currencies:
+            if currency in balance_data["result"]:
+                usd_balance = float(balance_data["result"][currency])
+                currency_used = currency
+                break
 
-    print(f"[GAINZBOT DEBUG] Balance Detected: {usd_balance} in {currency_used}")
+        print(f"[GAINZBOT DEBUG] Balance Detected: {usd_balance} in {currency_used}")
 
-    if usd_balance == 0:
-        await update.message.reply_text(
-            "❌ No balance available in USD, GBP, USDT, or EUR. Add funds to begin trading."
-        )
-        breakout_running = False
-        return
+        if usd_balance == 0:
+            await update.message.reply_text(
+                "❌ No balance available in USD, GBP, USDT, or EUR. Add funds to begin trading."
+            )
+            breakout_running = False
+            return
 
-            risk_equity = usd_balance * 0.20
+        risk_equity = usd_balance * 0.20
 
-            import asyncio
-            while breakout_running:
-                response = api.query_public('Ticker', {'pair': pair})
-
-
+        import asyncio
+        while breakout_running:
+            response = api.query_public('Ticker', {'pair': pair})
             if 'result' not in response or pair not in response['result']:
                 await update.message.reply_text("⚠️ No price available. Kraken API returned an unexpected response.")
                 breakout_running = False
                 return
-  
-                print(f"[GAINZBOT] Price response: {response}")
 
-                price = float(response['result'][pair]['c'][0])
+            price = float(response['result'][pair]['c'][0])
+            print(f"[GAINZBOT DEBUG] Price response: {price}")
 
-                if price > high_trigger:
-                    await update.message.reply_text(f"🚀 Breakout UP! BTC/USD hit ${price}")
-                    await place_trade(update, price, "buy", risk_equity)
-                    breakout_running = False
+            if price > high_trigger:
+                await update.message.reply_text(f"🚀 Breakout UP! BTC/USD hit ${price}")
+                await place_trade(update, price, "buy", risk_equity)
+                breakout_running = False
 
-                elif price < low_trigger:
-                    await update.message.reply_text(f"📉 Breakout DOWN! BTC/USD dropped to ${price}")
-                    await place_trade(update, price, "sell", risk_equity)
-                    breakout_running = False
+            elif price < low_trigger:
+                await update.message.reply_text(f"📉 Breakout DOWN! BTC/USD dropped to ${price}")
+                await place_trade(update, price, "sell", risk_equity)
+                breakout_running = False
 
-                await asyncio.sleep(10)
+            await asyncio.sleep(10)
 
-        except Exception as e:
-            breakout_running = False
-            await update.message.reply_text(f"⚠️ Error: {str(e)}")
+    except Exception as e:
+        breakout_running = False
+        await update.message.reply_text(f"⚠️ Error: {str(e)}")
 
     import asyncio
     asyncio.create_task(monitor_breakout())
