@@ -321,7 +321,7 @@ if __name__ == "__main__":
     # 💬 Message Handlers (emoji/text buttons)
     app.add_handler(MessageHandler(filters.Regex("📘 Learn"), learn))
     app.add_handler(MessageHandler(filters.Regex("💪 Fitness Tips"), fitness_tips))
-    app.add_handler(MessageHandler(filters.Regex("💰 Trade Now"), trade))
+    app.add_handler(MessageHandler(filters.Regex("💰 Trade Now"), handle_trade))
     app.add_handler(MessageHandler(filters.Regex("⚙️ Settings"), settings))
     app.add_handler(MessageHandler(filters.Regex("📈 Market Options"), market_options))
     app.add_handler(MessageHandler(filters.Regex("🧯 Risk Level"), risk_level))
