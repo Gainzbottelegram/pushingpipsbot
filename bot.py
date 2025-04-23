@@ -150,24 +150,6 @@ def get_price(pair="XXBTZUSD"):
 from kraken_client import get_price  # Make sure this is your custom function
 
 
-# --- /start command ---
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user = update.effective_user
-    lang_code = user.language_code[:2]
-    context.user_data["lang"] = lang_code
-
-    welcome_text = (
-        f"💪 Welcome to *GainzBot* — where your journey to *financial* and *physical* strength begins!\n\n"
-        f"👋 Glad to have you onboard, {user.first_name}! Let’s get the gainz in!\n\n"
-        f"🧠 Setting up your training zone...\n"
-        f"✅ Account synced and active.\n"
-        f"💵 Trading Style: Beginner-Friendly | 💭 Mindset Mode: On\n"
-        f"⚙ ️ Status: Online | Latency: Optimal\n\n"
-        f"🌍 Select your language:\n"
-        f"🇺 🇸 English | 🇪🇸 Español (coming soon)\n\n"
-        f"👇 Tap an option below to begin:"
-    )
-
 
     # Send welcome message
     await update.message.reply_text(welcome_text, reply_markup=reply_markup, parse_mode="Markdown")
