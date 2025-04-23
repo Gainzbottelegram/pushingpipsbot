@@ -262,7 +262,7 @@ async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
-    await update.message.reply_text(
+v    await update.message.reply_text(
         "🏠 Back at base. Choose the next move👇",
         reply_markup=reply_markup
     )
@@ -411,24 +411,6 @@ async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
     await update.message.reply_text("🌍 Choose your preferred language:", reply_markup=language_markup)
 
 
-# Start the bot
-if __name__ == "__main__":
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    app.run_polling()
-    ApplicationBuilder,
-    CommandHandler,
-    MessageHandler,
-    ContextTypes,
-    filters,
-import krakenex
-import pandas as pd
-
-# Load environment variables
-
-# Get tokens from .env
-
-# Set up Kraken API
 
 # Set up logging
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
