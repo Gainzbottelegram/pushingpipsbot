@@ -1,19 +1,16 @@
-import logging
+# 🌐 Core Imports
 import os
 import sys
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+import asyncio
+import logging
 
+# 🧠 Third-party packages
 import krakenex
 import pandas as pd
 from dotenv import load_dotenv
-from modules.finance import check_balance
-from telegram.ext import CommandHandler
-from modules.main import handle_main
-from modules.train import handle_train
-from modules.brain import handle_brain 
-from modules.trade import handle_trade
 
-from telegram import Update, ReplyKeyboardMarkup
+# 🤖 Telegram core
+from telegram import Update, ReplyKeyboardMarkup, BotCommand
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
@@ -21,6 +18,13 @@ from telegram.ext import (
     ContextTypes,
     filters,
 )
+
+# 🧩 GainzBot modules (your preferred order)
+from modules.main import handle_main
+from modules.brain import handle_brain
+from modules.train import handle_train
+from modules.trade import handle_trade
+from modules.finance import check_balance  # You can move this to trade later
 
 from telegram import ReplyKeyboardMarkup
 
