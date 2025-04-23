@@ -29,10 +29,6 @@ from modules.finance import check_balance  # You can move this to trade later
 from telegram import ReplyKeyboardMarkup
 
 
-from dotenv import load_dotenv
-import krakenex
-import pandas as pd
-
 
 # Language & Tip Support
 SUPPORTED_LANGUAGES = {
