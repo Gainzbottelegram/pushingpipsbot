@@ -478,6 +478,7 @@ def get_price(pair="XXBTZUSD"):
     price = response["result"][pair]["c"][0]
     return f"${price}"
 
+import asyncio
 
 # Run the bot
 if __name__ == "__main__":
