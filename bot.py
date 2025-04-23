@@ -329,9 +329,6 @@ if __name__ == "__main__":
     app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnight_trading))
     app.add_handler(MessageHandler(filters.Regex("🔁 Auto Withdrawals"), auto_withdrawal))
 
-    # 🧠 Catch-all for unrecognized replies
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-
     # ☰ Set the command bar
     asyncio.run(set_commands(app.bot))
 
