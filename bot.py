@@ -151,8 +151,8 @@ from kraken_client import get_price  # Make sure this is your custom function
 
 
 
-    # Send welcome message
-    await update.message.reply_text(welcome_text, reply_markup=reply_markup, parse_mode="Markdown")
+# Send welcome message
+await update.message.reply_text(welcome_text, reply_markup=reply_markup, parse_mode="Markdown")
 
 # 🌍 Language Selector (Inline)
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
