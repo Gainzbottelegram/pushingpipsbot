@@ -279,7 +279,6 @@ def get_price(pair="XXBTZUSD"):
     price = response["result"][pair]["c"][0]
     return f"${price}"
 
-import asyncio
 
 # Load token from .env
 
@@ -332,6 +331,15 @@ if __name__ == "__main__":
     # ☰ Set the command bar
     asyncio.run(set_commands(app.bot))
 
-    # ▶️ Launch polling
-    app.run_polling()
+import asyncio
+
+async def main():
+    # Set your slash commands first
+    await set_commands(app.bot)
+
+    # Then launch the bot
+    await app.run_polling()
+
+if __name__ == "__main__":
+    asyncio.run(main())
 
