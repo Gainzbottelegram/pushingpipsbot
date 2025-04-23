@@ -250,8 +250,6 @@ def get_price(pair="XXBTZUSD"):
 
 from kraken_client import get_price  # Make sure this is your custom function
 
-# Load token from .env
-
 
 # --- /start command ---
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
