@@ -248,22 +248,6 @@ TOKEN = os.getenv("TELEGRAM_TOKEN")
 # Set up logging
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
-# Run the bot
-if __name__ == "__main__":
-    app = ApplicationBuilder().token(TOKEN).build()
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("balance", check_balance))
-    app.add_handler(CommandHandler("main", handle_main))
-    app.add_handler(CommandHandler("train", handle_train))
-    app.add_handler(CommandHandler("trade", handle_trade))
-    app.add_handler(CommandHandler("brain", handle_brain))
-
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    app.run_polling()
-
-
-# Set up Kraken API
-
 # Set up logging
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
@@ -484,18 +468,8 @@ def get_price(pair="XXBTZUSD"):
 
 import asyncio
 
-# Run the bot
-if __name__ == "__main__":
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    print("🤖 GainzBot is live and flexing!")
-    app.run_polling()
-
-
-from kraken_client import get_price  # Make sure this is your custom function
-
 # Load token from .env
-B
+
 async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
@@ -508,10 +482,12 @@ async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=reply_markup
     )
 
-# --- Bot Setup ---
-import asyncio
-from telegram import BotCommand
+# ✅ Background strategy runner
+async def on_startup(app):
+    app.create_task(breakout_loop(app))
+    print("✅ Breakout loop started")
 
+# ✅ Set Telegram slash menu (blue ☰ menu)
 async def set_commands(bot):
     await bot.set_my_commands([
         BotCommand("main", "📋 Main menu and bot settings"),
@@ -519,21 +495,23 @@ async def set_commands(bot):
         BotCommand("train", "🏋️ Access training & fitness"),
         BotCommand("trade", "💸 Trading, finance & sync"),
     ])
-    print("✅ Custom command menu set") 
+    print("✅ Slash menu set")
 
+# ✅ Start the bot
 if __name__ == "__main__":
     load_dotenv()
     TOKEN = os.getenv("TELEGRAM_TOKEN")
-    app = ApplicationBuilder().token(TOKEN).build()
 
-    # ✅ Command Handlers (/ commands)
+    app = ApplicationBuilder().token(TOKEN).post_init(on_startup).build()
+
+    # 🟦 Slash Command Handlers
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("main", handle_main))
-    app.add_handler(CommandHandler("brain", handle_brain))
     app.add_handler(CommandHandler("train", handle_train))
+    app.add_handler(CommandHandler("brain", handle_brain))
     app.add_handler(CommandHandler("trade", handle_trade))
 
-    # ✅ Message Handlers (button presses / replies)
+    # 💬 Message Handlers (emoji/text buttons)
     app.add_handler(MessageHandler(filters.Regex("📊 Dashboard"), dashboard))
     app.add_handler(MessageHandler(filters.Regex("📘 Learn"), learn))
     app.add_handler(MessageHandler(filters.Regex("💪 Fitness Tips"), fitness_tips))
@@ -546,12 +524,12 @@ if __name__ == "__main__":
     app.add_handler(MessageHandler(filters.Regex("🔁 Auto Withdrawals"), auto_withdrawal))
     app.add_handler(MessageHandler(filters.Regex("🔙 Back to Main Menu"), back_to_main_menu))
 
-    # ✅ Catch-all fallback
+    # 🧠 Catch-all for unrecognized replies
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-    # ✅ Set blue menu
+    # ☰ Set the command bar
     asyncio.run(set_commands(app.bot))
 
-    # ✅ Run bot
+    # ▶️ Launch polling
     app.run_polling()
 
