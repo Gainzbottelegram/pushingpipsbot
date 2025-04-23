@@ -83,7 +83,10 @@ KRAKEN_API_SECRET = os.getenv("KRAKEN_API_SECRET")
 kraken = krakenex.API()
 
 # Logging
-logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", 
+    level=logging.INFO
+)
 
 
 # Price fetch
@@ -132,12 +135,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # Load environment variables
 load_dotenv()
 TOKEN = os.getenv("TELEGRAM_TOKEN")
-
-# Set up logging
-logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
-
-# Set up logging
-logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
 
 # Price fetcher
