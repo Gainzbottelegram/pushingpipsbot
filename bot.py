@@ -90,8 +90,6 @@ keyboard = [
     ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
     ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
 ]
-import krakenex
-import pandas as pd
 # Language & Tip Support
 SUPPORTED_LANGUAGES = {
     "🇬🇧 English": "en",
