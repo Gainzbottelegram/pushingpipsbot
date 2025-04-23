@@ -515,11 +515,11 @@ asyncio.run(set_commands(app.bot))
 
 # Add command + message handlers here...
 
-    # 🧠 Command Bar (shows when typing /)
-    import asyncio
-    from telegram import BotCommand
+# 🧠 Command Bar (shows when typing /)
+import asyncio
+from telegram import BotCommand
 
-    async def set_commands(bot):
+async def set_commands(bot):
     await app.bot.set_my_commands([
         BotCommand("menu", "Main menu"),
         BotCommand("start", "Onboarding & sync"),
