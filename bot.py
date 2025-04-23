@@ -143,22 +143,10 @@ def get_tip(section, lang):
     return tips.get(lang, tips.get("en", ["Stay consistent."]))[0]
 
 
-# Load environment variables
-
-# Set up Kraken API
 
 # Logging
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
-# Custom reply keyboard
-keyboard = [
-    ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
-    ["💼 Risk Level", "🎚 Trade Size"],
-    ["🌙 Overnight Mode", "💸 Auto Withdrawals"]
-]
-
-reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
 # Price fetch
 def get_price(pair="XXBTZUSD"):
@@ -251,21 +239,6 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 # Set up logging
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
-# Custom reply keyboard
-async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [
-        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-        ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
-        ["💼 Risk Level", "🎚 Trade Size"],
-        ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
-        ["🌍 Change Language", "⬅️ Back"]
-    ]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-
-v    await update.message.reply_text(
-        "🏠 Back at base. Choose the next move👇",
-        reply_markup=reply_markup
-    )
 
 # Price fetcher
 def get_price(pair="XXBTZUSD"):
@@ -319,9 +292,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 # --- Handlers ---
-async def dashboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("📊 Dashboard is in progress.\nHere you’ll track PnL, active trades & more!")
-
 async def learn(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "📚 Learn Mode:\nComing soon: bite-sized tips on trading, mindset & growth.\nStay tuned!💪")
@@ -468,7 +438,6 @@ if __name__ == "__main__":
     app.add_handler(CommandHandler("trade", handle_trade))
 
     # 💬 Message Handlers (emoji/text buttons)
-    app.add_handler(MessageHandler(filters.Regex("📊 Dashboard"), dashboard))
     app.add_handler(MessageHandler(filters.Regex("📘 Learn"), learn))
     app.add_handler(MessageHandler(filters.Regex("💪 Fitness Tips"), fitness_tips))
     app.add_handler(MessageHandler(filters.Regex("💰 Trade Now"), trade))
@@ -478,7 +447,6 @@ if __name__ == "__main__":
     app.add_handler(MessageHandler(filters.Regex("📐 Trade Size"), trade_size))
     app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnight_trading))
     app.add_handler(MessageHandler(filters.Regex("🔁 Auto Withdrawals"), auto_withdrawal))
-    app.add_handler(MessageHandler(filters.Regex("🔙 Back to Main Menu"), back_to_main_menu))
 
     # 🧠 Catch-all for unrecognized replies
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
