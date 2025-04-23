@@ -274,12 +274,6 @@ def get_price(pair="XXBTZUSD"):
     return f"${price}"
 
 
-# Run the bot
-if __name__ == "__main__":
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    print("🤖 GainzBot is live and flexing!")
-    app.run_polling()
 
 from kraken_client import get_price  # Make sure this is your custom function
 
