@@ -333,13 +333,21 @@ if __name__ == "__main__":
 
 import asyncio
 
-async def main():
-    # Set your slash commands first
-    await set_commands(app.bot)
+async def set_commands(bot):
+    await bot.set_my_commands([
+        BotCommand("start", "Launch GainzBot"),
+        BotCommand("main", "📋 Main menu and bot settings"),
+        BotCommand("train", "🏋️ Access training & fitness"),
+        BotCommand("trade", "💸 Trading, finance & sync"),
+        BotCommand("brain", "🧠 Mentorship, tools & upgrades"),
+        BotCommand("connect", "🔗 Connect your Kraken account"),
+        BotCommand("balance", "💼 Check your Kraken balance"),
+    ])
 
-    # Then launch the bot
-    await app.run_polling()
+async def main():
+    await set_commands(app.bot)         # 💡 No event loop errors
+    await app.run_polling()             # 🟢 Launch cleanly
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(main())                 # ✅ One clean event loop
 
