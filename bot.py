@@ -85,64 +85,12 @@ kraken = krakenex.API()
 # Logging
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
-# Language & Tip Support
-SUPPORTED_LANGUAGES = {
-    "🇬🇧 English": "en",
-    "🇪🇸 Español": "es",
-    "🇫🇷 Français": "fr",
-    "🇩🇪 Deutsch": "de"
-}
-
-translations = {
-    "welcome": {
-        "en": "Welcome to GainzBot 💪 Let's level up your body, bank, and brain.",
-        "es": "Bienvenido a GainzBot 💪 Vamos a mejorar tu cuerpo, mente y billetera.",
-        "fr": "Bienvenue sur GainzBot 💪 Élevons ton corps, ton portefeuille et ton esprit.",
-        "de": "Willkommen bei GainzBot 💪 Lass uns Körper, Geld und Geist verbessern."
-    },
-    "choose_action": {
-        "en": "Choose your next move:",
-        "es": "Elige tu siguiente paso:",
-        "fr": "Choisis ta prochaine étape :",
-        "de": "Wähle deinen nächsten Schritt:"
-    }
-}
-
-def get_user_lang(context, update):
-    return context.user_data.get("lang") or update.effective_user.language_code[:2]
-
-def t(key, lang):
-    return translations.get(key, {}).get(lang, translations[key]["en"])
-
-def get_tip(section, lang):
-    # Placeholder – link to external tip loader in future
-    sample = {
-        "fitness": {
-            "en": ["Train smart, not just hard."],
-            "es": ["Entrena con inteligencia, no solo con fuerza."]
-        },
-        "finance": {
-            "en": ["Risk small to gain big."],
-            "es": ["Arriesga poco para ganar mucho."]
-        }
-    }
-    tips = sample.get(section, {})
-    return tips.get(lang, tips.get("en", ["Stay consistent."]))[0]
-
-
-
-# Logging
-logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
-
 
 # Price fetch
 def get_price(pair="XXBTZUSD"):
     response = kraken.query_public("Ticker", {"pair": pair})
     return f"${response['result'][pair]['c'][0]}"
 
-# Language keyboard options
-LANGUAGE_OPTIONS = [["🇺🇸 English", "🇪🇸 Esp"]]
-language_markup = ReplyKeyboardMarkup(LANGUAGE_OPTIONS, resize_keyboard=True, one_time_keyboard=True)
 
 # Button/text responses
 import importlib.util
@@ -224,6 +172,31 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Send welcome message
     await update.message.reply_text(welcome_text, reply_markup=reply_markup, parse_mode="Markdown")
 
+# 🌍 Language Selector (Inline)
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton
+from telegram.ext import CallbackQueryHandler
+
+# Inline /language command
+async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        [
+            InlineKeyboardButton("🇺🇸 English", callback_data="lang_en"),
+            InlineKeyboardButton("🇪🇸 Español (soon)", callback_data="lang_es"),
+        ]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    await update.message.reply_text(
+        "🌍 Choose your preferred language:",
+        reply_markup=reply_markup
+    )
+
+async def handle_language_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    lang = query.data.split("_")[1]
+    context.user_data["lang"] = lang
+    await query.edit_message_text(f"✅ Language set to: {lang.upper()}")
 
 # --- Handlers ---
 async def learn(update: Update, context: ContextTypes.DEFAULT_TYPE):
