@@ -26,8 +26,6 @@ from modules.train import handle_train
 from modules.trade import handle_trade
 from modules.finance import check_balance  # You can move this to trade later
 
-from telegram import ReplyKeyboardMarkup
-
 
 
 # Language & Tip Support
