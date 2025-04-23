@@ -490,7 +490,7 @@ if __name__ == "__main__":
 from kraken_client import get_price  # Make sure this is your custom function
 
 # Load token from .env
-
+B
 async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
@@ -507,8 +507,7 @@ async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 if __name__ == "__main__":
     load_dotenv()
     TOKEN = os.getenv("TELEGRAM_TOKEN")
-    
-app = ApplicationBuilder().token(TOKEN).build()
+    app = ApplicationBuilder().token(TOKEN).build()
 
 # 👇 Set command bar commands
 asyncio.run(set_commands(app.bot))
@@ -520,14 +519,13 @@ import asyncio
 from telegram import BotCommand
 
 async def set_commands(bot):
-    await app.bot.set_my_commands([
-        BotCommand("menu", "Main menu"),
-        BotCommand("start", "Onboarding & sync"),
-        BotCommand("connect", "Link your Kraken account"),
-        BotCommand("train", "Access training & fitness tips"),
-        BotCommand("trade", "Manage trading & strategy"),
-        BotCommand("brain", "Mentorship & tracking tools"),
-        BotCommand("balance", "Check your Kraken balance"),
+    await bot.set_my_commands([
+        BotCommand("main", "📋 Main menu and bot settings"),
+        BotCommand("train", "🏋️ Access training & fitness"),
+        BotCommand("trade", "💸 Trading, finance & sync"),
+        BotCommand("brain", "🧠 Mentorship, tools & upgrades"),
+        BotCommand("connect", "🔗 Connect your Kraken account"),
+        BotCommand("balance", "💼 Check your Kraken balance"),
     ])
 
     # 📡 Command Handlers (/start, /train, /menu, etc.)
@@ -554,5 +552,6 @@ async def set_commands(bot):
     # 📩 Catch-all text handler
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
+    asyncio.run(set_commands(app.bot))
     app.run_polling()
 
