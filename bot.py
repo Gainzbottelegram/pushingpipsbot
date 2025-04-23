@@ -275,7 +275,7 @@ async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     await update.message.reply_text(
-        "🏠 Back at base. Choose your next move👇",
+        "🏠 Back at base. Choose the next move👇",
         reply_markup=reply_markup
     )
 
@@ -507,24 +507,44 @@ async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 if __name__ == "__main__":
     load_dotenv()
     TOKEN = os.getenv("TELEGRAM_TOKEN")
-
+    
     app = ApplicationBuilder().token(TOKEN).build()
 
-    # Add all handlers
+    # 🧠 Command Bar (shows when typing /)
+    from telegram import BotCommand
+    await app.bot.set_my_commands([
+        BotCommand("menu", "Main menu"),
+        BotCommand("start", "Onboarding & sync"),
+        BotCommand("connect", "Link your Kraken account"),
+        BotCommand("train", "Access training & fitness tips"),
+        BotCommand("trade", "Manage trading & strategy"),
+        BotCommand("brain", "Mentorship & tracking tools"),
+        BotCommand("balance", "Check your Kraken balance"),
+    ])
+
+    # 📡 Command Handlers (/start, /train, /menu, etc.)
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("trade", trade))
+    app.add_handler(CommandHandler("balance", check_balance))
+    app.add_handler(CommandHandler("main", handle_main))
+    app.add_handler(CommandHandler("train", handle_train))
+    app.add_handler(CommandHandler("brain", handle_brain))
+    app.add_handler(CommandHandler("trade", handle_trade))
+
+    # 🎛️ Message Handlers (button clicks + text matching)
     app.add_handler(MessageHandler(filters.Regex("📊 Dashboard"), dashboard))
-    app.add_handler(MessageHandler(filters.Regex("🎓 Learn"), learn))
-    app.add_handler(MessageHandler(filters.Regex("🏋 ️ Fitness Tips"), fitness_tips))
-    app.add_handler(MessageHandler(filters.Regex("💵 Trade Now"), trade))
-    app.add_handler(MessageHandler(filters.Regex("🧠 Daily Mindset Boost"), mindset_boost))
-    app.add_handler(MessageHandler(filters.Regex("⚙ ️ Settings"), settings))
-    app.add_handler(MessageHandler(filters.Regex("📉 Market Options"), market_options))
-    app.add_handler(MessageHandler(filters.Regex("💼 Risk Level"), risk_level))
-    app.add_handler(MessageHandler(filters.Regex("🎚 TTrade Size"), trade_size))
+    app.add_handler(MessageHandler(filters.Regex("📘 Learn"), learn))
+    app.add_handler(MessageHandler(filters.Regex("💪 Fitness Tips"), fitness_tips))
+    app.add_handler(MessageHandler(filters.Regex("💰 Trade Now"), trade))
+    app.add_handler(MessageHandler(filters.Regex("⚙️ Settings"), settings))
+    app.add_handler(MessageHandler(filters.Regex("📈 Market Options"), market_options))
+    app.add_handler(MessageHandler(filters.Regex("📉 Risk Level"), risk_level))
+    app.add_handler(MessageHandler(filters.Regex("📏 Trade Size"), trade_size))
     app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnight_trading))
-    app.add_handler(MessageHandler(filters.Regex("💸 Auto Withdrawals"), auto_withdrawal))
-    app.add_handler(MessageHandler(filters.Regex("⬅ ️ Back to Main Menu"), back_to_main_menu))
+    app.add_handler(MessageHandler(filters.Regex("🏦 Auto Withdrawals"), auto_withdrawal))
+    app.add_handler(MessageHandler(filters.Regex("🔙 Back to Main Menu"), back_to_main_menu))
+
+    # 📩 Catch-all text handler
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
     app.run_polling()
+
