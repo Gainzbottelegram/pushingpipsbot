@@ -85,11 +85,6 @@ kraken = krakenex.API()
 # Logging
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
-# Custom reply keyboard
-keyboard = [
-    ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-    ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
-]
 # Language & Tip Support
 SUPPORTED_LANGUAGES = {
     "🇬🇧 English": "en",
@@ -165,32 +160,6 @@ from modules.fitness import handle_fitness
 from modules.education import handle_education
 from modules.mentor import handle_mentor
 
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text
-
-    if text == "📊 Dashboard":
-        await update.message.reply_text("📈 Dashboard coming soon. You'll be able to view trade/flex stats here.")
-
-    elif text == "🎓 Learn":
-        await handle_education(update, context)
-
-    elif text == "🏋️ Fitness Tips":
-        await handle_fitness(update, context)
-
-    elif text == "💵 Trade Now":
-        await activate_trading_bot(update, context)
-
-    elif text == "🧠 Daily Mindset Boost":
-        await handle_mentor(update, context)
-
-    elif text == "⚙️ Settings":
-        await update.message.reply_text("⚙️ Settings menu coming soon: Change risk, language, and trading style.")
-
-    elif text == "📉 Risk Level":
-        await update.message.reply_text("🛡 Max risk per trade is currently set to 20% of your equity. Auto-sizing is enabled.")
-
-    else:
-        await update.message.reply_text("🤖 Not sure what that means, champ. Try hitting a button below.")
 
 # Define the /start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
