@@ -549,9 +549,12 @@ async def set_commands(bot):
     app.add_handler(MessageHandler(filters.Regex("🏦 Auto Withdrawals"), auto_withdrawal))
     app.add_handler(MessageHandler(filters.Regex("🔙 Back to Main Menu"), back_to_main_menu))
 
-    # 📩 Catch-all text handler
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+# 🧠 Catch-all text handler
+app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-    asyncio.run(set_commands(app.bot))
-    app.run_polling()
+# ✅ Set custom Telegram command menu (must come after defining set_commands)
+asyncio.run(set_commands(app.bot))
+
+# ▶️ Start polling
+app.run_polling()
 
