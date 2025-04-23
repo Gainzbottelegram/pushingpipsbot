@@ -509,57 +509,48 @@ async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 # --- Bot Setup ---
-if __name__ == "__main__":
-    load_dotenv()
-    TOKEN = os.getenv("TELEGRAM_TOKEN")
-    app = ApplicationBuilder().token(TOKEN).build()
-
-# 👇 Set command bar commands
-asyncio.run(set_commands(app.bot))
-
-# Add command + message handlers here...
-
-# 🧠 Command Bar (shows when typing /)
 import asyncio
 from telegram import BotCommand
 
 async def set_commands(bot):
     await bot.set_my_commands([
         BotCommand("main", "📋 Main menu and bot settings"),
+        BotCommand("brain", "🧠 Mentorship, tools & upgrades"),
         BotCommand("train", "🏋️ Access training & fitness"),
         BotCommand("trade", "💸 Trading, finance & sync"),
-        BotCommand("brain", "🧠 Mentorship, tools & upgrades"),
-        BotCommand("connect", "🔗 Connect your Kraken account"),
-        BotCommand("balance", "💼 Check your Kraken balance"),
     ])
 
-    # 📡 Command Handlers (/start, /train, /menu, etc.)
+if __name__ == "__main__":
+    load_dotenv()
+    TOKEN = os.getenv("TELEGRAM_TOKEN")
+    app = ApplicationBuilder().token(TOKEN).build()
+
+    # ✅ Command Handlers (/ commands)
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("balance", check_balance))
     app.add_handler(CommandHandler("main", handle_main))
-    app.add_handler(CommandHandler("train", handle_train))
     app.add_handler(CommandHandler("brain", handle_brain))
+    app.add_handler(CommandHandler("train", handle_train))
     app.add_handler(CommandHandler("trade", handle_trade))
 
-    # 🎛️ Message Handlers (button clicks + text matching)
+    # ✅ Message Handlers (button presses / replies)
     app.add_handler(MessageHandler(filters.Regex("📊 Dashboard"), dashboard))
     app.add_handler(MessageHandler(filters.Regex("📘 Learn"), learn))
     app.add_handler(MessageHandler(filters.Regex("💪 Fitness Tips"), fitness_tips))
     app.add_handler(MessageHandler(filters.Regex("💰 Trade Now"), trade))
     app.add_handler(MessageHandler(filters.Regex("⚙️ Settings"), settings))
     app.add_handler(MessageHandler(filters.Regex("📈 Market Options"), market_options))
-    app.add_handler(MessageHandler(filters.Regex("📉 Risk Level"), risk_level))
-    app.add_handler(MessageHandler(filters.Regex("📏 Trade Size"), trade_size))
+    app.add_handler(MessageHandler(filters.Regex("🧯 Risk Level"), risk_level))
+    app.add_handler(MessageHandler(filters.Regex("📐 Trade Size"), trade_size))
     app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnight_trading))
-    app.add_handler(MessageHandler(filters.Regex("🏦 Auto Withdrawals"), auto_withdrawal))
+    app.add_handler(MessageHandler(filters.Regex("🔁 Auto Withdrawals"), auto_withdrawal))
     app.add_handler(MessageHandler(filters.Regex("🔙 Back to Main Menu"), back_to_main_menu))
 
-# 🧠 Catch-all text handler
-app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    # ✅ Catch-all fallback
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-# ✅ Set custom Telegram command menu (must come after defining set_commands)
-asyncio.run(set_commands(app.bot))
+    # ✅ Set blue menu
+    asyncio.run(set_commands(app.bot))
 
-# ▶️ Start polling
-app.run_polling()
+    # ✅ Run bot
+    app.run_polling()
 
