@@ -519,6 +519,7 @@ async def set_commands(bot):
         BotCommand("train", "🏋️ Access training & fitness"),
         BotCommand("trade", "💸 Trading, finance & sync"),
     ])
+    print("✅ Custom command menu set") 
 
 if __name__ == "__main__":
     load_dotenv()
