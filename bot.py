@@ -179,16 +179,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"👇 Tap an option below to begin:"
     )
 
-    keyboard = [
-        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-        ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
-        ["💼 Risk Level", "🎚 Trade Size"],
-        ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
-        ["🌍 Change Language", "⬅️ Back"]
-    ]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-
-    await update.message.reply_text(welcome_text, reply_markup=reply_markup, parse_mode="Markdown")
 
 # Load environment variables
 load_dotenv()
@@ -230,22 +220,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"👇 Tap an option below to begin:"
     )
 
-    keyboard = [
-        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-        ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
-        ["💼 Risk Level", "🎚 Trade Size"],
-        ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
-        ["🌍 Change Language", "⬅️ Back"]
-    ]
 
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-
-    await update.message.reply_text(
-        welcome_text,
-        reply_markup=reply_markup,
-        parse_mode="Markdown"
-    )
-    
     # Send welcome message
     await update.message.reply_text(welcome_text, reply_markup=reply_markup, parse_mode="Markdown")
 
@@ -355,17 +330,6 @@ import asyncio
 
 # Load token from .env
 
-async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [
-        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-        ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
-    ]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-
-    await update.message.reply_text(
-        "🏠 Back at base. Choose your next move👇",
-        reply_markup=reply_markup
-    )
 
 # ✅ Background strategy runner
 async def on_startup(app):
