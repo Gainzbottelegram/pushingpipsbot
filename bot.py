@@ -266,9 +266,6 @@ async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
 
 
 
-# Set up logging
-logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
-
 
 # Price fetcher
 def get_price(pair="XXBTZUSD"):
@@ -276,8 +273,6 @@ def get_price(pair="XXBTZUSD"):
     price = response["result"][pair]["c"][0]
     return f"${price}"
 
-
-# Load token from .env
 
 
 # ✅ Background strategy runner
