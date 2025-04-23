@@ -434,6 +434,11 @@ if __name__ == "__main__":
     app.add_handler(CommandHandler("train", handle_train))
     app.add_handler(CommandHandler("brain", handle_brain))
     app.add_handler(CommandHandler("trade", handle_trade))
+    # 🔄 CallbackQuery Handlers (inline button responses)
+    app.add_handler(CallbackQueryHandler(handle_main, pattern="main"))
+    app.add_handler(CallbackQueryHandler(handle_train, pattern="train"))
+    app.add_handler(CallbackQueryHandler(handle_brain, pattern="brain"))
+    app.add_handler(CallbackQueryHandler(handle_trade, pattern="trade"))
 
     # 💬 Message Handlers (emoji/text buttons)
     app.add_handler(MessageHandler(filters.Regex("📘 Learn"), learn))
