@@ -407,26 +407,6 @@ async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=reply_markup
     )
 
-# --- Bot Setup ---
-app = ApplicationBuilder().token(TOKEN).build()
-
-# Command + Button Handlers
-app.add_handler(CommandHandler("start", start))
-app.add_handler(CommandHandler("trade", trade))
-app.add_handler(MessageHandler(filters.Regex("📊 Dashboard"), dashboard))
-app.add_handler(MessageHandler(filters.Regex("📚 Learn"), learn))
-app.add_handler(MessageHandler(filters.Regex("🏋️‍♂️ Fitness Tips"), fitness_tips))
-app.add_handler(MessageHandler(filters.Regex("💵 Trade Now"), trade))
-app.add_handler(MessageHandler(filters.Regex("🧠 Daily Mindset Boost"), mindset_boost))
-app.add_handler(MessageHandler(filters.Regex("⚙️ Settings"), settings))
-app.add_handler(MessageHandler(filters.Regex("🌍 Market Options"), market_options))
-app.add_handler(MessageHandler(filters.Regex("⚠️ Risk Level"), risk_level))
-app.add_handler(MessageHandler(filters.Regex("💰 Trade Size"), trade_size))
-app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnight_trading))
-app.add_handler(MessageHandler(filters.Regex("🔄 Auto Withdrawal"), auto_withdrawal))
-app.add_handler(MessageHandler(filters.Regex("🔙 Back to Main Menu"), back_to_main_menu))
-# --- Run Bot ---
-app.run_polling()
 async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("🌍 Choose your preferred language:", reply_markup=language_markup)
 
