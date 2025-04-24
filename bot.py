@@ -347,4 +347,5 @@ if __name__ == "__main__":
     try:
         asyncio.run(main())
     except RuntimeError as e:
-        print(f"⚠
+        print(f"⚠️ Event Loop error: {e}")
+
