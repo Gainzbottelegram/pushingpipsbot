@@ -274,7 +274,7 @@ def get_price(pair="XXBTZUSD"):
 
 # ✅ Background strategy runner
 async def on_startup(app):
-    app.create_task(breakout_loop(app))
+no i meant     app.create_task(breakout_loop(app))
     print("✅ Breakout loop started")
 
 # ✅ Set Telegram slash menu (blue ☰ menu)
@@ -305,6 +305,8 @@ app.add_handler(CallbackQueryHandler(handle_main, pattern="main"))
 app.add_handler(CallbackQueryHandler(handle_train, pattern="train"))
 app.add_handler(CallbackQueryHandler(handle_brain, pattern="brain"))
 app.add_handler(CallbackQueryHandler(handle_trade, pattern="trade"))
+app.add_handler(CallbackQueryHandler(check_balance, pattern="^balance$"))
+app.add_handler(CallbackQueryHandler(connect_kraken, pattern="^connect$"))
 
 # 💬 Message Handlers (emoji/text buttons)
 app.add_handler(MessageHandler(filters.Regex("📘 Learn"), learn))
