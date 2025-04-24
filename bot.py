@@ -152,17 +152,21 @@ from kraken_client import get_price  # Make sure this is your custom function
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackQueryHandler
 
-# Language selector handler
+# ✅ Inline Language Selector Handler
 async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    query = update.callback_query
+    await query.answer()
+
     keyboard = [
-        [
-            InlineKeyboardButton("🇺🇸 English", callback_data="lang_en"),
-            InlineKeyboardButton("🇪🇸 Español (soon)", callback_data="lang_es"),
-        ]
+        [InlineKeyboardButton("🇺🇸 English", callback_data="lang_en")],
+        [InlineKeyboardButton("🇪🇸 Español (soon)", callback_data="lang_es_disabled")],
+        [InlineKeyboardButton("⬅️ Back", callback_data="trade")]
     ]
-    await update.message.reply_text(
-        "🌍 Choose your preferred language:",
-        reply_markup=InlineKeyboardMarkup(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    await query.edit_message_text(
+        "🌍 Choose your language:",
+        reply_markup=reply_markup
     )
 
 async def handle_language_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
