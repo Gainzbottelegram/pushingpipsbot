@@ -287,6 +287,9 @@ async def set_commands(bot):
     ])
     print("✅ Slash menu set")
 
+#✅ Import asyncio near the bottom of bot.py
+import asyncio
+
 # ✅ Start the bot
     TOKEN = os.getenv("TELEGRAM_TOKEN")
     app = ApplicationBuilder().token(TOKEN).post_init(on_startup).build()
@@ -295,7 +298,7 @@ async def set_commands(bot):
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("main", handle_main))
     app.add_handler(CommandHandler("train", handle_train))
-    app.add_handler(CommandHandler("brain", handle_brain))
+    app.add_handlery(CommandHandler("brain", handle_brain))
     app.add_handler(CommandHandler("trade", handle_trade))
     # 🔄 CallbackQuery Handlers (inline button responses)
     app.add_handler(CallbackQueryHandler(handle_main, pattern="main"))
@@ -335,9 +338,7 @@ async def set_commands(bot):
     except Exception as e:
         print(f"⚠️ Failed to set commands: {e}")
 
-# ✅ Full bot runner
-import asyncio
-
+#✅ Full bot runner
 async def main():
     await set_commands(app.bot)
     await app.run_polling()
@@ -347,4 +348,5 @@ if __name__ == "__main__":
         asyncio.run(main())
     except RuntimeError as e:
         print(f"⚠️ Event loop error: {e}")
+
 
