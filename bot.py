@@ -331,8 +331,6 @@ async def set_commands(bot):
             BotCommand("train", "🏋️ Fitness & nutrition"),
             BotCommand("trade", "💸 Trading, finance, Kraken"),
             BotCommand("brain", "🧠 Mentorship & upgrades"),
-            BotCommand("balance", "💼 Check Kraken balance"),
-            BotCommand("connect", "🔗 Connect Kraken account")
         ])
         print("✅ Slash commands set.")
     except Exception as e:
