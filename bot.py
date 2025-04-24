@@ -317,8 +317,8 @@ app.add_handler(MessageHandler(filters.Regex("📐 Trade Size"), trade_size))
 app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnight_trading))
 app.add_handler(MessageHandler(filters.Regex("🔁 Auto Withdrawals"), auto_withdrawal))
 
-    # ☰ Set the command bar
-    asyncio.run(set_commands(app.bot))
+# ☰ Set the command bar
+asyncio.run(set_commands(app.bot))
 
 from telegram import BotCommand
 
