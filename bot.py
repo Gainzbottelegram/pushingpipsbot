@@ -154,7 +154,7 @@ from telegram.ext import CallbackQueryHandler
 
 
 # ✅ Inline Language Selector Handler
-async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
