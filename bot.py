@@ -153,7 +153,7 @@ from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackQueryHandler
 
 # Language selector handler
-async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     keyboard = [
         [
             InlineKeyboardButton("🇺🇸 English", callback_data="lang_en"),
