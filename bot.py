@@ -249,17 +249,6 @@ async def auto_withdrawal(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [
-        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-        ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
-    ]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-
-    await update.message.reply_text(
-        "⬅️ Back at base. No excuses. Choose your next move wisely. 💼🔥",
-        reply_markup=reply_markup
-    )
-
 async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("🌍 Choose your preferred language:", reply_markup=language_markup)
 
@@ -274,7 +263,6 @@ def get_price(pair="XXBTZUSD"):
 
 # ✅ Background strategy runner
 async def on_startup(app):
-no i meant     app.create_task(breakout_loop(app))
     print("✅ Breakout loop started")
 
 # ✅ Set Telegram slash menu (blue ☰ menu)
