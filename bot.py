@@ -294,28 +294,28 @@ import asyncio
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 app = ApplicationBuilder().token(TOKEN).post_init(on_startup).build()
 
-    # 🟦 Slash Command Handlers
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("main", handle_main))
-    app.add_handler(CommandHandler("train", handle_train))
-    app.add_handlery(CommandHandler("brain", handle_brain))
-    app.add_handler(CommandHandler("trade", handle_trade))
-    # 🔄 CallbackQuery Handlers (inline button responses)
-    app.add_handler(CallbackQueryHandler(handle_main, pattern="main"))
-    app.add_handler(CallbackQueryHandler(handle_train, pattern="train"))
-    app.add_handler(CallbackQueryHandler(handle_brain, pattern="brain"))
-    app.add_handler(CallbackQueryHandler(handle_trade, pattern="trade"))
+# 🟦 Slash Command Handlers
+app.add_handler(CommandHandler("start", start))
+app.add_handler(CommandHandler("main", handle_main))
+app.add_handler(CommandHandler("train", handle_train))
+app.add_handlery(CommandHandler("brain", handle_brain))
+app.add_handler(CommandHandler("trade", handle_trade))
+# 🔄 CallbackQuery Handlers (inline button responses)
+app.add_handler(CallbackQueryHandler(handle_main, pattern="main"))
+app.add_handler(CallbackQueryHandler(handle_train, pattern="train"))
+app.add_handler(CallbackQueryHandler(handle_brain, pattern="brain"))
+app.add_handler(CallbackQueryHandler(handle_trade, pattern="trade"))
 
-    # 💬 Message Handlers (emoji/text buttons)
-    app.add_handler(MessageHandler(filters.Regex("📘 Learn"), learn))
-    app.add_handler(MessageHandler(filters.Regex("💪 Fitness Tips"), fitness_tips))
-    app.add_handler(MessageHandler(filters.Regex("💰 Trade Now"), handle_trade))
-    app.add_handler(MessageHandler(filters.Regex("⚙️ Settings"), settings))
-    app.add_handler(MessageHandler(filters.Regex("📈 Market Options"), market_options))
-    app.add_handler(MessageHandler(filters.Regex("🧯 Risk Level"), risk_level))
-    app.add_handler(MessageHandler(filters.Regex("📐 Trade Size"), trade_size))
-    app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnight_trading))
-    app.add_handler(MessageHandler(filters.Regex("🔁 Auto Withdrawals"), auto_withdrawal))
+# 💬 Message Handlers (emoji/text buttons)
+app.add_handler(MessageHandler(filters.Regex("📘 Learn"), learn))
+app.add_handler(MessageHandler(filters.Regex("💪 Fitness Tips"), fitness_tips))
+app.add_handler(MessageHandler(filters.Regex("💰 Trade Now"), handle_trade))
+app.add_handler(MessageHandler(filters.Regex("⚙️ Settings"), settings))
+app.add_handler(MessageHandler(filters.Regex("📈 Market Options"), market_options))
+app.add_handler(MessageHandler(filters.Regex("🧯 Risk Level"), risk_level))
+app.add_handler(MessageHandler(filters.Regex("📐 Trade Size"), trade_size))
+app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnight_trading))
+app.add_handler(MessageHandler(filters.Regex("🔁 Auto Withdrawals"), auto_withdrawal))
 
     # ☰ Set the command bar
     asyncio.run(set_commands(app.bot))
@@ -347,6 +347,4 @@ if __name__ == "__main__":
     try:
         asyncio.run(main())
     except RuntimeError as e:
-        print(f"⚠️ Event loop error: {e}")
-
-
+        print(f"⚠
