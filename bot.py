@@ -1,7 +1,6 @@
 # 🌐 Core Imports
 import os
 import sys
-import asyncio
 import logging
 
 # 🧠 Third-party packages
@@ -265,8 +264,6 @@ async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
     await update.message.reply_text("🌍 Choose your preferred language:", reply_markup=language_markup)
 
 
-
-
 # Price fetcher
 def get_price(pair="XXBTZUSD"):
     response = kraken.query_public("Ticker", {"pair": pair})
@@ -324,22 +321,32 @@ if __name__ == "__main__":
     asyncio.run(set_commands(app.bot))
 
 import asyncio
+from telegram import BotCommand
 
+# ✅ Define your slash menu commands
 async def set_commands(bot):
-    await bot.set_my_commands([
-        BotCommand("start", "Launch GainzBot"),
-        BotCommand("main", "📋 Main menu and bot settings"),
-        BotCommand("train", "🏋️ Access training & fitness"),
-        BotCommand("trade", "💸 Trading, finance & sync"),
-        BotCommand("brain", "🧠 Mentorship, tools & upgrades"),
-        BotCommand("connect", "🔗 Connect your Kraken account"),
-        BotCommand("balance", "💼 Check your Kraken balance"),
-    ])
+    try:
+        await bot.set_my_commands([
+            BotCommand("start", "Launch GainzBot"),
+            BotCommand("main", "📋 Main menu and bot settings"),
+            BotCommand("train", "🏋️ Fitness & nutrition"),
+            BotCommand("trade", "💸 Trading, finance, Kraken"),
+            BotCommand("brain", "🧠 Mentorship & upgrades"),
+            BotCommand("balance", "💼 Check Kraken balance"),
+            BotCommand("connect", "🔗 Connect Kraken account")
+        ])
+        print("✅ Slash commands set.")
+    except Exception as e:
+        print(f"⚠️ Failed to set commands: {e}")
 
+# ✅ Full bot runner
 async def main():
-    await set_commands(app.bot)         # 💡 No event loop errors
-    await app.run_polling()             # 🟢 Launch cleanly
+    await set_commands(app.bot)
+    await app.run_polling()
 
 if __name__ == "__main__":
-    asyncio.run(main())                 # ✅ One clean event loop
+    try:
+        asyncio.run(main())
+    except RuntimeError as e:
+        print(f"⚠️ Event loop error: {e}")
 
