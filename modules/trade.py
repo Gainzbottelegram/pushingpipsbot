@@ -1,15 +1,17 @@
-from telegram import Update
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ContextTypes
 
 async def handle_trade(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "📈 Welcome to the GainzBot Trading Zone!\n\n"
-        "Here’s where you manage your money and strategy:\n"
-        "🔐 /connect — Link your Kraken account\n"
-        "💵 /balance — Check funds\n"
-        "⚡ /trade_now — Trigger auto-trading (breakouts)\n"
-        "📊 /status — View live trading activity\n"
-        "🧠 /strategy — Adjust trading logic & risk\n\n"
-        "Let GainzBot earn while you train. You’ve got both in motion now. 💪💸"
-    )
+    keyboard = [
+        [InlineKeyboardButton("📈 Market Options", callback_data="market_options")],
+        [InlineKeyboardButton("💼 Risk Level", callback_data="risk_level")],
+        [InlineKeyboardButton("💰 Trade Size", callback_data="trade_size")],
+        [InlineKeyboardButton("🌙 Overnight Trading", callback_data="overnight_trading")],
+        [InlineKeyboardButton("🔁 Auto Withdrawals", callback_data="auto_withdrawal")],
+        [InlineKeyboardButton("💳 Check Balance", callback_data="balance")],
+        [InlineKeyboardButton("🔗 Connect Kraken", callback_data="connect")],
+        [InlineKeyboardButton("⬅️ Back", callback_data="main_menu")],
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text("⚙️ Customize your trading settings:", reply_markup=reply_markup)
 
