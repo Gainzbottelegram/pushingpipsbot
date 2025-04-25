@@ -160,7 +160,7 @@ async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     keyboard = [
         [InlineKeyboardButton("🇺🇸 English", callback_data="lang_en")],
-        [InlineKeyboardButton("🇪🇸 Español (soon)", callback_data="lang_es_disabled")],
+        [InlineKeyboardButton("🇪🇸 Espaln)", callback_data="langsd")],
         [InlineKeyboardButton("⬅️ Back", callback_data="trade")]
     ]
 
