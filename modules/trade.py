@@ -12,6 +12,15 @@ async def handle_trade(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("🔗 Connect Kraken", callback_data="connect")],
         [InlineKeyboardButton("⬅️ Back", callback_data="main_menu")],
     ]
+
+async def connect_kraken(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    query = update.callback_query
+    await query.answer()
+    await query.edit_message_text(
+        text="🔗 Connect your Kraken account:\nComing soon. We’ll walk you through API key setup and account sync."
+    )
+
+
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("⚙️ Customize your trading settings:", reply_markup=reply_markup)
 
