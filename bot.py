@@ -163,6 +163,7 @@ async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("🇪🇸 Español (soon)", callback_data="lang_es_disabled")],
         [InlineKeyboardButton("⬅️ Back", callback_data="trade")]
     ]
+
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     await query.edit_message_text(
