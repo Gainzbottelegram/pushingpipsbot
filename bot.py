@@ -329,6 +329,7 @@ async def main():
         print("✅ Slash commands set.")
     except Exception as e:
         print(f"⚠️ Failed to set commands: {e}")
+
     await app.start()
     await app.updater.start_polling()
     await app.updater.wait()
@@ -338,4 +339,5 @@ if __name__ == "__main__":
         asyncio.run(main())
     except RuntimeError as e:
         print(f"⚠️ Event Loop error: {e}")
+
 
