@@ -160,7 +160,6 @@ async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     keyboard = [
         [InlineKeyboardButton("🇺🇸 English", callback_data="lang_en")],
-        [InlineKeyboardButton("🇪🇸 Espaln)", callback_data="langsd")],
         [InlineKeyboardButton("⬅️ Back", callback_data="trade")]
     ]
 
@@ -254,8 +253,6 @@ async def auto_withdrawal(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
-async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("🌍 Choose your preferred language:", reply_markup=language_markup)
 
 
 # Price fetcher
