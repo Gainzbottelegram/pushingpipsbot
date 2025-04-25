@@ -319,6 +319,7 @@ async def set_commands(bot):
             BotCommand("brain", "🧠 Mentorship & upgrades"),
         ])
 
+
 # ✅ Full bot runner
 import asyncio
 
