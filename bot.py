@@ -277,8 +277,6 @@ async def set_commands(bot):
     ])
     print("✅ Slash menu set")
 
-#✅ Import asyncio near the bottom of bot.py
-import asyncio
 
 # ✅ Start the bot
 TOKEN = os.getenv("TELEGRAM_TOKEN")
@@ -309,10 +307,6 @@ app.add_handler(MessageHandler(filters.Regex("📐 Trade Size"), trade_size))
 app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnight_trading))
 app.add_handler(MessageHandler(filters.Regex("🔁 Auto Withdrawals"), auto_withdrawal))
 
-# ☰ Set the command bar
-asyncio.run(set_commands(app.bot))
-
-from telegram import BotCommand
 
 # ✅ Define your slash menu commands
 async def set_commands(bot):
@@ -324,14 +318,20 @@ async def set_commands(bot):
             BotCommand("trade", "💸 Trading, finance, Kraken"),
             BotCommand("brain", "🧠 Mentorship & upgrades"),
         ])
+
+# ✅ Full bot runner
+import asyncio
+
+async def main():
+    await app.initialize()
+    try:
+        await set_commands(app.bot)
         print("✅ Slash commands set.")
     except Exception as e:
         print(f"⚠️ Failed to set commands: {e}")
-
-#✅ Full bot runner
-async def main():
-    await set_commands(app.bot)
-    await app.run_polling()
+    await app.start()
+    await app.updater.start_polling()
+    await app.updater.wait()
 
 if __name__ == "__main__":
     try:
