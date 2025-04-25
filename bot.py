@@ -24,7 +24,7 @@ from modules.brain import handle_brain
 from modules.train import handle_train
 from modules.trade import handle_trade
 from modules.finance import check_balance  # You can move this to trade later
-
+from modules.trade import connect_kraken
 
 
 # Language & Tip Support
@@ -252,29 +252,11 @@ async def auto_withdrawal(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     )
 
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
-from telegram.ext import ContextTypes
-
-async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    query = update.callback_query
-    await query.answer()
-
-    keyboard = [
-        [InlineKeyboardButton("🏠 Main", callback_data="main")],
-        [InlineKeyboardButton("💪 Train", callback_data="train")],
-        [InlineKeyboardButton("💰 Trade", callback_data="trade")],
-        [InlineKeyboardButton("🧠 Brain", callback_data="brain")],
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-
-    await query.edit_message_text(
-        text="⬅️ You're back at GainzBase.\nWhere are we heading next? 🧭",
-        reply_markup=reply_markup
-    )
+async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 # Price fetcher
-def get_price(pair="XXBTZUSD"):
+ def get_price(pair="XXBTZUSD"):
     response = kraken.query_public("Ticker", {"pair": pair})
     price = response["result"][pair]["c"][0]
     return f"${price}"
