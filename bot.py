@@ -308,28 +308,29 @@ app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnigh
 app.add_handler(MessageHandler(filters.Regex("🔁 Auto Withdrawals"), auto_withdrawal))
 
 
-# ✅ Define your slash menu commands
+# ✅ Full bot runner (safe async fix)
+import asyncio
+from telegram import BotCommand
+
 async def set_commands(bot):
     try:
         await bot.set_my_commands([
-            BotCommand("start", "Launch GainzBot"),
-            BotCommand("main", "📋 Main menu and bot settings"),
+            BotCommand("start", "🔓 Launch GainzBot"),
+            BotCommand("main", "📊 Main menu and bot settings"),
             BotCommand("train", "🏋️ Fitness & nutrition"),
-            BotCommand("trade", "💸 Trading, finance, Kraken"),
+            BotCommand("trade", "💵 Trading, finance, Kraken"),
             BotCommand("brain", "🧠 Mentorship & upgrades"),
         ])
-
-
-# ✅ Full bot runner
-import asyncio
+        print("✅ Slash commands set.")
+    except Exception as e:
+        print(f"⚠️ Failed to set commands: {e}")
 
 async def main():
     await app.initialize()
     try:
         await set_commands(app.bot)
-        print("✅ Slash commands set.")
     except Exception as e:
-        print(f"⚠️ Failed to set commands: {e}")
+        print(f"⚠️ Slash command setup error: {e}")
 
     await app.start()
     await app.updater.start_polling()
