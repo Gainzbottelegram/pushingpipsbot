@@ -111,8 +111,7 @@ from modules.education import handle_education
 from modules.mentor import handle_mentor
 
 
-# Define the /start command
-# 📍 Define the /start command
+# ✅ Define the /start command properly
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     from telegram import ReplyKeyboardMarkup
 
@@ -121,19 +120,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data["lang"] = lang_code
 
     welcome_text = (
-        f"💪 *Welcome to GainzBot!* — Your journey to *financial* and *physical* greatness begins now.\n\n"
-        f"👋 Welcome, {user.first_name}!\n"
+        f"💪 Welcome to *GainzBot* — your journey to *financial* and *physical* strength begins!\n\n"
+        f"👋 Glad to have you onboard, {user.first_name}!\n\n"
         f"🧠 Setting up your training zone...\n"
-        f"✅ Account synced and active\n"
-        f"💵 Trading Style: Beginner-Friendly\n"
-        f"💭 Mindset Mode: On\n"
+        f"✅ Account synced and active.\n"
+        f"💵 Trading Style: Beginner-Friendly | 💭 Mindset Mode: On\n"
         f"⚙️ Status: Online | Latency: Optimal\n\n"
-        f"🌍 *Select your language:*\n"
+        f"🌍 Select your language:\n"
         f"🇺🇸 English | 🇪🇸 Español (coming soon)\n\n"
-        f"👇 *Tap an option below to begin:*"
+        f"👇 Tap an option below to begin:"
     )
 
-    # Inline reply keyboard for smooth onboarding
+    # ✅ Inline reply keyboard matching your design
     keyboard = [
         ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
         ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
