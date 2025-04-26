@@ -112,16 +112,24 @@ from modules.mentor import handle_mentor
 
 
 # ✅ Define the /start command properly
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    from telegram import ReplyKeyboardMarkup
+from telegram import ReplyKeyboardMarkup
 
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     lang_code = user.language_code[:2]
     context.user_data["lang"] = lang_code
 
+    # Inline reply keyboard
+    keyboard = [
+        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
+        ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+
+    # Welcome message
     welcome_text = (
-        f"💪 Welcome to *GainzBot* — your journey to *financial* and *physical* strength begins!\n\n"
-        f"👋 Glad to have you onboard, {user.first_name}!\n\n"
+        f"💪 Welcome to *GainzBot* — your journey to *financial* and *physical* greatness begins!\n"
+        f"👋 Glad to have you onboard, {user.first_name}!\n"
         f"🧠 Setting up your training zone...\n"
         f"✅ Account synced and active.\n"
         f"💵 Trading Style: Beginner-Friendly | 💭 Mindset Mode: On\n"
@@ -131,13 +139,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"👇 Tap an option below to begin:"
     )
 
-    # ✅ Inline reply keyboard matching your design
-    keyboard = [
-        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-        ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
-    ]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-
+    # ✅ Now finally send it
     await update.message.reply_text(
         welcome_text,
         reply_markup=reply_markup,
