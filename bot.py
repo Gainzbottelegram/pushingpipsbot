@@ -125,18 +125,21 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"💵 Trading Style: Beginner-Friendly | 💭 Mindset Mode: On\n"
         f"⚙️ Status: Online | Latency: Optimal\n\n"
         f"🌍 Select your language:\n"
-        f"🇺🇸 English | 🇪🇸 Español (coming soon)\n\n"
         f"👇 Tap an option below to begin:"
     )
 
-    # Create a simple language keyboard
     keyboard = [
-        ["🇺🇸 English", "🇪🇸 Español (soon)"]
+        [InlineKeyboardButton("🇺🇸 English", callback_data="lang_en")],
+        [InlineKeyboardButton("🇪🇸 Español (coming soon)", callback_data="lang_es")]
     ]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True, one_time_keyboard=True)
+    reply_markup = InlineKeyboardMarkup(keyboard)
 
-    # Send welcome message
-    await update.message.reply_text(welcome_text, reply_markup=reply_markup, parse_mode="Markdown")
+    await update.message.reply_text(
+        welcome_text,
+        parse_mode="Markdown",
+        reply_markup=reply_markup
+    )
+
 
 # Load environment variables
 load_dotenv()
