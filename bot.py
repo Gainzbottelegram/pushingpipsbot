@@ -112,32 +112,38 @@ from modules.mentor import handle_mentor
 
 
 # Define the /start command
+# 📍 Define the /start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    from telegram import ReplyKeyboardMarkup
+
     user = update.effective_user
     lang_code = user.language_code[:2]
     context.user_data["lang"] = lang_code
 
     welcome_text = (
-        f"💪 Welcome to *GainzBot* — where your journey to *financial* and *physical* strength begins!\n\n"
-        f"👋 Glad to have you onboard, {user.first_name}! Let’s get the gainz in!\n\n"
+        f"💪 *Welcome to GainzBot!* — Your journey to *financial* and *physical* greatness begins now.\n\n"
+        f"👋 Welcome, {user.first_name}!\n"
         f"🧠 Setting up your training zone...\n"
-        f"✅ Account synced and active.\n"
-        f"💵 Trading Style: Beginner-Friendly | 💭 Mindset Mode: On\n"
+        f"✅ Account synced and active\n"
+        f"💵 Trading Style: Beginner-Friendly\n"
+        f"💭 Mindset Mode: On\n"
         f"⚙️ Status: Online | Latency: Optimal\n\n"
-        f"🌍 Select your language:\n"
-        f"👇 Tap an option below to begin:"
+        f"🌍 *Select your language:*\n"
+        f"🇺🇸 English | 🇪🇸 Español (coming soon)\n\n"
+        f"👇 *Tap an option below to begin:*"
     )
 
+    # Inline reply keyboard for smooth onboarding
     keyboard = [
-        [InlineKeyboardButton("🇺🇸 English", callback_data="lang_en")],
-        [InlineKeyboardButton("🇪🇸 Español (coming soon)", callback_data="lang_es")]
+        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
+        ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
     ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     await update.message.reply_text(
         welcome_text,
-        parse_mode="Markdown",
-        reply_markup=reply_markup
+        reply_markup=reply_markup,
+        parse_mode="Markdown"
     )
 
 
