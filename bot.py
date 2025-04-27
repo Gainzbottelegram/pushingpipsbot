@@ -118,17 +118,19 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     lang_code = user.language_code[:2]
     context.user_data["lang"] = lang_code
 
-    # Inline reply keyboard
+    # ✅ Keep your inline reply keyboard design
     keyboard = [
-        ["📊 Dashboard", "🎓 Learn", "🏋️ Fitness Tips"],
-        ["💵 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"]
+        ["📊 Dashboard", "🎓 Learn", "💪 Fitness Tips"],
+        ["💸 Trade Now", "🧠 Daily Mindset Boost", "⚙️ Settings"],
+        ["🌙 Overnight Mode", "🤖 Auto Withdrawals"],
+        ["🌎 Change Language", "🔙 Back"]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
-    # Welcome message
+    # ✅ Welcome text
     welcome_text = (
-        f"💪 Welcome to *GainzBot* — your journey to *financial* and *physical* greatness begins!\n"
-        f"👋 Glad to have you onboard, {user.first_name}!\n"
+        f"💪 Welcome to *GainzBot* — your journey to *financial* and *physical* gainz!\n"
+        f"👋 Glad to have you onboard, {user.first_name}!\n\n"
         f"🧠 Setting up your training zone...\n"
         f"✅ Account synced and active.\n"
         f"💵 Trading Style: Beginner-Friendly | 💭 Mindset Mode: On\n"
@@ -138,12 +140,19 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"👇 Tap an option below to begin:"
     )
 
-    # ✅ Now finally send it
-    await update.message.reply_text(
-        welcome_text,
-        reply_markup=reply_markup,
-        parse_mode="Markdown"
-    )
+    # ✅ Send safely whether from message or callback
+    if update.message:
+        await update.message.reply_text(
+            welcome_text,
+            reply_markup=reply_markup,
+            parse_mode="Markdown"
+        )
+    elif update.callback_query:
+        await update.callback_query.message.reply_text(
+            welcome_text,
+            reply_markup=reply_markup,
+            parse_mode="Markdown"
+        )
 
 
 
