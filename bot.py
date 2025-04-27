@@ -322,10 +322,7 @@ app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnigh
 app.add_handler(MessageHandler(filters.Regex("🔁 Auto Withdrawals"), auto_withdrawal))
 
 
-# ✅ Full bot runner (safe async fix)
-import asyncio
-from telegram import BotCommand
-
+# Set Commands
 async def set_commands(bot):
     try:
         await bot.set_my_commands([
@@ -338,6 +335,9 @@ async def set_commands(bot):
         print("✅ Slash commands set.")
     except Exception as e:
         print(f"⚠️ Failed to set commands: {e}")
+
+import asyncio
+from telegram import BotCommand
 
 async def main():
     await app.initialize()
