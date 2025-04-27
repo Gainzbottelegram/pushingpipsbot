@@ -9,7 +9,7 @@ import pandas as pd
 from dotenv import load_dotenv
 
 # 🤖 Telegram core
-from telegram import Update, ReplyKeyboardMarkup, BotCommand
+from telegram import Update, ReplyKeyboardMarkup, InlineKeyboardButton,  BotCommand
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
@@ -112,8 +112,6 @@ from modules.education import handle_education
 from modules.mentor import handle_mentor
 
 
-# ✅ Define the /start command properly
-from telegram import ReplyKeyboardMarkup
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
@@ -161,10 +159,6 @@ def get_price(pair="XXBTZUSD"):
 from kraken_client import get_price  # Make sure this is your custom function
 
 
-
-# 🌍 Language Selector (Inline)
-from telegram import InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.ext import CallbackQueryHandler
 
 
 # ✅ Inline Language Selector Handler
@@ -336,8 +330,6 @@ async def set_commands(bot):
     except Exception as e:
         print(f"⚠️ Failed to set commands: {e}")
 
-import asyncio
-from telegram import BotCommand
 
 async def main():
     await app.initialize()
