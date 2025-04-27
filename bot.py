@@ -289,7 +289,7 @@ async def set_commands(bot):
 # ✅ Start the bot
 load_dotenv()
 TOKEN = os.getenv("TELEGRAM_TOKEN")
-app = ApplicationBuilder().token(TOKEN).build()
+app = ApplicationBuilder().token(TOKEN).post_init(on_startup).build()
 # 🟦 Slash Command Handlers
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("main", handle_main))
