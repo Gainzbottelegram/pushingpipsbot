@@ -15,6 +15,7 @@ from telegram.ext import (
     CommandHandler,
     MessageHandler,
     ContextTypes,
+    CallbackQueryHandler,
     filters,
 )
 
@@ -147,9 +148,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 
-# Load environment variables
-load_dotenv()
-TOKEN = os.getenv("TELEGRAM_TOKEN")
 
 
 # Price fetcher
@@ -295,8 +293,9 @@ async def set_commands(bot):
 
 
 # ✅ Start the bot
+load_dotenv()
 TOKEN = os.getenv("TELEGRAM_TOKEN")
-app = ApplicationBuilder().token(TOKEN).post_init(on_startup).build()
+app = ApplicationBuilder().token(TOKEN).post_init().build()
 # 🟦 Slash Command Handlers
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("main", handle_main))
