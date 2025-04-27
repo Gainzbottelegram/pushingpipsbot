@@ -2,6 +2,7 @@
 import os
 import sys
 import logging
+import asyncio
 
 # 🧠 Third-party packages
 import krakenex
