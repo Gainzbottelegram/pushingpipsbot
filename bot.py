@@ -151,7 +151,7 @@ from kraken_client import get_price  # Make sure this is your custom function
 # 🌍 Language Selector (Inline)
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackQueryHandler
-v
+
 
 # ✅ Inline Language Selector Handler
 async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -253,7 +253,15 @@ async def auto_withdrawal(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
+    keyboard = [
+        ["📘 Learn", "💪 Fitness Tips"],
+        ["💰 Trade Now", "⚙️ Settings"]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    await update.message.reply_text(
+        "📋 Back to Main Menu:\nChoose an option below:",
+        reply_markup=reply_markup
+    )
 
 # Price fetcher
  def get_price(pair="XXBTZUSD"):
@@ -332,5 +340,6 @@ if __name__ == "__main__":
         asyncio.run(main())
     except RuntimeError as e:
         print(f"⚠️ Event Loop error: {e}")
+
 
 
