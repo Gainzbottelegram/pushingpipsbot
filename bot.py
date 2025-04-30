@@ -316,7 +316,9 @@ async def set_commands(bot):
             BotCommand("trade", "💸 Trading, finance, Kraken"),
             BotCommand("brain", "🧠 Mentorship & upgrades"),
         ])
-
+        logging.info("Slash commands set")
+    except Exception as e:
+        logging.error(f"Failed to set commands: {e}")
 
 # ✅ Full bot runner
 import asyncio
