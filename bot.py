@@ -319,14 +319,14 @@ async def main():
     logging.info("Bot initialized")
     try:
         await set_commands(app.bot)
-        print("✅ Slash commands set.")
+        logging.info("Slash commands set")
+        await app.start()
+        logging.info("Bot started")
+        await app.updater.start_polling()
+        logging.info("Polling started")
+        await app.updater.wait()
     except Exception as e:
-        print(f"⚠️ Failed to set commands: {e}")
-    await app.start()
-    logging.info("Bot started")
-    await app.updater.start_polling()
-    logging.info("Polling started")
-    await app.updater.wait()
+        logging.error(f"Bot failed to start: {e}")
 
 if __name__ == "__main__":
     try:
