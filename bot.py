@@ -264,7 +264,7 @@ async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 # Price fetcher
- def get_price(pair="XXBTZUSD"):
+def get_price(pair="XXBTZUSD"):
     response = kraken.query_public("Ticker", {"pair": pair})
     price = response["result"][pair]["c"][0]
     return f"${price}"
