@@ -333,10 +333,9 @@ async def main():
         logging.info("Bot started")
         await app.updater.start_polling()
         logging.info("Polling started")
-        await app.updater.wait()
+        await app.idle()
     except Exception as e:
         logging.error(f"Bot failed to start: {e}")
-
 if __name__ == "__main__":
     try:
         asyncio.run(main())
