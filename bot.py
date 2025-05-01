@@ -265,18 +265,18 @@ app.add_handler(MessageHandler(filters.Regex("🔁 Auto Withdrawals"), auto_with
 async def main():
     logging.info("Bot initializing")
     try:
-        # Run set_commands asynchronously
+        await app.initialize()
         await set_commands(app.bot)
         logging.info("Slash commands set")
-        # Start and run polling
-        await app.initialize()
         await app.start()
         logging.info("Bot started")
         await app.run_polling(allowed_updates=Update.ALL_TYPES)
     except Exception as e:
         logging.error(f"Bot failed to start: {e}")
+        raise  # Re-raise to let asyncio.run handle cleanup
     finally:
-        await app.stop()  # Properly await the stop coroutine
+        await app.stop()
+        await app.shutdown()
         logging.info("Bot stopped")
 
 if __name__ == "__main__":
