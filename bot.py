@@ -325,6 +325,8 @@ import asyncio
 
 import asyncio
 
+import asyncio
+
 def main():
     app.initialize()
     logging.info("Bot initialized")
@@ -334,7 +336,9 @@ def main():
         logging.info("Slash commands set")
         app.start()
         logging.info("Bot started")
-        app.run_polling(allowed_updates=Update.ALL_TYPES)  # Blocking call to start polling
+        # Explicitly create and run the event loop for polling
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(app.run_polling(allowed_updates=Update.ALL_TYPES))
     except Exception as e:
         logging.error(f"Bot failed to start: {e}")
     finally:
