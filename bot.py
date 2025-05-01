@@ -323,11 +323,14 @@ async def set_commands(bot):
 # ✅ Full bot runner
 import asyncio
 
+import asyncio
+
 def main():
     app.initialize()
     logging.info("Bot initialized")
     try:
-        app.run_async(set_commands(app.bot))
+        # Run set_commands synchronously using asyncio.run
+        asyncio.run(set_commands(app.bot))
         logging.info("Slash commands set")
         app.start()
         logging.info("Bot started")
