@@ -323,17 +323,19 @@ async def set_commands(bot):
 # ✅ Full bot runner
 import asyncio
 
-async def main():
-    await app.initialize()
+def main():
+    app.initialize()
     logging.info("Bot initialized")
     try:
-        await set_commands(app.bot)
+        app.run_async(set_commands(app.bot))
         logging.info("Slash commands set")
-        await app.start()
+        app.start()
         logging.info("Bot started")
-        app.run_polling()  # Use run_polling to start polling and keep the bot running
+        app.run_polling(allowed_updates=Update.ALL_TYPES)  # Blocking call to start polling
     except Exception as e:
         logging.error(f"Bot failed to start: {e}")
+    finally:
+        app.stop()  # Ensure proper shutdown
 
 if __name__ == "__main__":
     try:
