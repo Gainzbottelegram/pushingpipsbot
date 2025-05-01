@@ -2,6 +2,7 @@
 import os
 import sys
 import logging
+import asyncio
 
 # 🧠 Third-party packages
 import krakenex
@@ -9,23 +10,25 @@ import pandas as pd
 from dotenv import load_dotenv
 
 # 🤖 Telegram core
-from telegram import Update, ReplyKeyboardMarkup, BotCommand
+from telegram import Update, ReplyKeyboardMarkup, BotCommand, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
     MessageHandler,
     ContextTypes,
     filters,
+    CallbackQueryHandler,
 )
 
-# 🧩 GainzBot modules (your preferred order)
+# 🧩 GainzBot modules
 from modules.main import handle_main
 from modules.brain import handle_brain
 from modules.train import handle_train
-from modules.trade import handle_trade
-from modules.finance import check_balance  # You can move this to trade later
-from modules.trade import connect_kraken
-
+from modules.trade import handle_trade, connect_kraken
+from modules.finance import check_balance, handle_finance, activate_trading_bot
+from modules.fitness import handle_fitness
+from modules.education import handle_education
+from modules.mentor import handle_mentor
 
 # Language & Tip Support
 SUPPORTED_LANGUAGES = {
@@ -57,7 +60,6 @@ def t(key, lang):
     return translations.get(key, {}).get(lang, translations[key]["en"])
 
 def get_tip(section, lang):
-    # Placeholder – link to external tip loader in future
     sample = {
         "fitness": {
             "en": ["Train smart, not just hard."],
@@ -70,7 +72,6 @@ def get_tip(section, lang):
     }
     tips = sample.get(section, {})
     return tips.get(lang, tips.get("en", ["Stay consistent."]))[0]
-
 
 # Load environment variables
 load_dotenv()
@@ -87,29 +88,28 @@ logging.basicConfig(
     level=logging.INFO
 )
 
+# Initialize the application
+app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
 
-# Price fetch
+# Price fetcher (remove duplicates)
 def get_price(pair="XXBTZUSD"):
     response = kraken.query_public("Ticker", {"pair": pair})
-    return f"${response['result'][pair]['c'][0]}"
+    price = response["result"][pair]["c"][0]
+    return f"${price}"
 
-
-# Button/text responses
-import importlib.util
-import pathlib
-
-finance_path = pathlib.Path(__file__).parent / "modules" / "finance.py"
-spec = importlib.util.spec_from_file_location("finance", finance_path)
-finance = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(finance)
-
-handle_finance = finance.handle_finance
-activate_trading_bot = finance.activate_trading_bot
-
-from modules.fitness import handle_fitness
-from modules.education import handle_education
-from modules.mentor import handle_mentor
-
+# ✅ Define your slash menu commands
+async def set_commands(bot):
+    try:
+        await bot.set_my_commands([
+            BotCommand("start", "Launch GainzBot"),
+            BotCommand("main", "📋 Main menu and bot settings"),
+            BotCommand("train", "🏋️ Fitness & nutrition"),
+            BotCommand("trade", "💸 Trading, finance, Kraken"),
+            BotCommand("brain", "🧠 Mentorship & upgrades"),
+        ])
+        logging.info("Slash commands set")
+    except Exception as e:
+        logging.error(f"Failed to set commands: {e}")
 
 # Define the /start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -128,30 +128,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"🇺 🇸 English | 🇪🇸 Español (coming soon)\n\n"
         f"👇 Tap an option below to begin:"
     )
-    # Send welcome message
+    keyboard = [
+        ["📘 Learn", "💪 Fitness Tips"],
+        ["💰 Trade Now", "⚙️ Settings"]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     await update.message.reply_text(welcome_text, reply_markup=reply_markup, parse_mode="Markdown")
-
-# Load environment variables
-load_dotenv()
-TOKEN = os.getenv("TELEGRAM_TOKEN")
-
-
-# Price fetcher
-def get_price(pair="XXBTZUSD"):
-    response = kraken.query_public("Ticker", {"pair": pair})
-    price = response["result"][pair]["c"][0]
-    return f"${price}"
-
-
-
-from kraken_client import get_price  # Make sure this is your custom function
-
-
-
-# 🌍 Language Selector (Inline)
-from telegram import InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.ext import CallbackQueryHandler
-
 
 # ✅ Inline Language Selector Handler
 async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -169,7 +151,6 @@ async def language_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🌍 Choose your language:",
         reply_markup=reply_markup
     )
-
 
 async def handle_language_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
@@ -189,17 +170,14 @@ async def fitness_tips(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode="Markdown"
     )
 
-
 async def mindset_boost(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("🧠 Boost:\n“Small steps every day beat huge leaps once in a while.”")
-
 
 async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         ["💼 Risk Level", "💰 Trade Size"],
         ["🌙 Overnight Mode", "💸 Auto Withdrawals"],
         ["🌍 Change Language", "⬅️ Back to Main Menu"]
-
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
@@ -208,7 +186,6 @@ async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "👇 Choose an option to adjust:",
         parse_mode="Markdown",
         reply_markup=reply_markup
-
     )
 
 async def market_options(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -217,7 +194,6 @@ async def market_options(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🔹 Crypto (BTC, ETH, etc.)\n"
         "🔹 Forex (EUR/USD, GBP/JPY, etc.)\n\n"
         "Your bot is 24/7 ready — just select your arena."
-
     )
 
 async def risk_level(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -225,7 +201,6 @@ async def risk_level(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "⚠️ Risk Level:\nSet your preferred trading risk.\n\n"
         "🟢 Low (Steady gains)\n🟡 Medium (Balanced approach)\n🔴 High (Aggressive strategies)\n\n"
         "Coach’s tip: Consistency beats chaos."
-
     )
 
 async def trade_size(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -233,7 +208,6 @@ async def trade_size(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "💰 Trade Size:\nDefine how much to risk per trade.\n\n"
         "Examples:\n- $10 per trade\n- 5% of your balance\n\n"
         "💡 Smart sizing protects your gains!"
-
     )
 
 async def overnight_trading(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -241,7 +215,6 @@ async def overnight_trading(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🌙 Overnight Trading:\nShould GainzBot stay active while you sleep?\n\n"
         "✅ Yes — I want round-the-clock trades\n❌ No — Pause during rest hours\n\n"
         "💤 Recovery is growth — in life and in markets."
-
     )
 
 async def auto_withdrawal(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -249,7 +222,6 @@ async def auto_withdrawal(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🔄 Auto Withdrawal:\nSet up automatic profit pulls.\n\n"
         "💸 Options:\n- Weekly\n- Monthly\n- After 10% gain\n\n"
         "💼 Secure the bag, consistently."
-
     )
 
 async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -263,38 +235,22 @@ async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=reply_markup
     )
 
-# Price fetcher
-def get_price(pair="XXBTZUSD"):
-    response = kraken.query_public("Ticker", {"pair": pair})
-    price = response["result"][pair]["c"][0]
-    return f"${price}"
-
-
-
 # ✅ Background strategy runner
 async def on_startup(app):
     print("✅ Breakout loop started")
 
-
-# ✅ Start the bot
-TOKEN = os.getenv("TELEGRAM_TOKEN")
-app = ApplicationBuilder().token(TOKEN).post_init(on_startup).build()
-
-# 🟦 Slash Command Handlers
+# Add handlers
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("main", handle_main))
 app.add_handler(CommandHandler("train", handle_train))
 app.add_handler(CommandHandler("brain", handle_brain))
 app.add_handler(CommandHandler("trade", handle_trade))
-# 🔄 CallbackQuery Handlers (inline button responses)
 app.add_handler(CallbackQueryHandler(handle_main, pattern="main"))
 app.add_handler(CallbackQueryHandler(handle_train, pattern="train"))
 app.add_handler(CallbackQueryHandler(handle_brain, pattern="brain"))
 app.add_handler(CallbackQueryHandler(handle_trade, pattern="trade"))
 app.add_handler(CallbackQueryHandler(check_balance, pattern="^balance$"))
 app.add_handler(CallbackQueryHandler(connect_kraken, pattern="^connect$"))
-
-# 💬 Message Handlers (emoji/text buttons)
 app.add_handler(MessageHandler(filters.Regex("📘 Learn"), learn))
 app.add_handler(MessageHandler(filters.Regex("💪 Fitness Tips"), fitness_tips))
 app.add_handler(MessageHandler(filters.Regex("💰 Trade Now"), handle_trade))
@@ -305,45 +261,22 @@ app.add_handler(MessageHandler(filters.Regex("📐 Trade Size"), trade_size))
 app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnight_trading))
 app.add_handler(MessageHandler(filters.Regex("🔁 Auto Withdrawals"), auto_withdrawal))
 
-
-# ✅ Define your slash menu commands
-async def set_commands(bot):
-    try:
-        await bot.set_my_commands([
-            BotCommand("start", "Launch GainzBot"),
-            BotCommand("main", "📋 Main menu and bot settings"),
-            BotCommand("train", "🏋️ Fitness & nutrition"),
-            BotCommand("trade", "💸 Trading, finance, Kraken"),
-            BotCommand("brain", "🧠 Mentorship & upgrades"),
-        ])
-        logging.info("Slash commands set")
-    except Exception as e:
-        logging.error(f"Failed to set commands: {e}")
-
 # ✅ Full bot runner
-import asyncio
-
-import asyncio
-
-import asyncio
-
 def main():
-    app.initialize()
-    logging.info("Bot initialized")
+    logging.info("Bot initializing")
     try:
-        # Run set_commands synchronously using asyncio.run
         asyncio.run(set_commands(app.bot))
         logging.info("Slash commands set")
-        app.start()
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        app.run_polling(allowed_updates=Update.ALL_TYPES)
         logging.info("Bot started")
-        # Explicitly create and run the event loop for polling
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(app.run_polling(allowed_updates=Update.ALL_TYPES))
+        loop.run_forever()
     except Exception as e:
         logging.error(f"Bot failed to start: {e}")
     finally:
-        app.stop()  # Ensure proper shutdown
+        app.stop()
+        loop.close()
 
 if __name__ == "__main__":
     main()
-
