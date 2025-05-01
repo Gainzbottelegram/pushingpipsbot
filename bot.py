@@ -262,21 +262,23 @@ app.add_handler(MessageHandler(filters.Regex("🌙 Overnight Trading"), overnigh
 app.add_handler(MessageHandler(filters.Regex("🔁 Auto Withdrawals"), auto_withdrawal))
 
 # ✅ Full bot runner
-def main():
+async def main():
     logging.info("Bot initializing")
     try:
-        asyncio.run(set_commands(app.bot))
+        # Run set_commands asynchronously
+        await set_commands(app.bot)
         logging.info("Slash commands set")
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        app.run_polling(allowed_updates=Update.ALL_TYPES)
+        # Start and run polling
+        await app.initialize()
+        await app.start()
         logging.info("Bot started")
-        loop.run_forever()
+        await app.run_polling(allowed_updates=Update.ALL_TYPES)
     except Exception as e:
         logging.error(f"Bot failed to start: {e}")
     finally:
-        app.stop()
-        loop.close()
+        await app.stop()  # Properly await the stop coroutine
+        logging.info("Bot stopped")
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
+
