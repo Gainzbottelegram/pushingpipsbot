@@ -337,9 +337,8 @@ async def main():
 
 if __name__ == "__main__":
     try:
-        asyncio.run(main())
+        main()  # No asyncio.run since main is no longer async
     except RuntimeError as e:
         print(f"⚠️ Event Loop error: {e}")
-
 
 
