@@ -341,9 +341,5 @@ def main():
         app.stop()  # Ensure proper shutdown
 
 if __name__ == "__main__":
-    try:
-        main()  # No asyncio.run since main is no longer async
-    except RuntimeError as e:
-        print(f"⚠️ Event Loop error: {e}")
-
+    main()
 
