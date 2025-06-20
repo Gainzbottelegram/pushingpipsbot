@@ -1,7 +1,8 @@
 import os
 import requests
 import time
-from threecommas_api import ThreeCommas
+from py3cw.request import Py3CW
+
 
 # --- Configurable settings ---
 PAIR = "BTC_GBP"
@@ -29,10 +30,10 @@ def main():
     API_SECRET = os.getenv("THREECOMMAS_API_SECRET")
     if not API_KEY or not API_SECRET:
         raise Exception("Set your THREECOMMAS_API_KEY and THREECOMMAS_API_SECRET as environment variables!")
-    tc = ThreeCommas(api_key=API_KEY, api_secret=API_SECRET)
+    p3cw = Py3CW(key=API_KEY, secret=API_SECRET)
 
     # --- 2. Find active GBP spot account ---
-    accounts, error = tc.get_accounts()
+    accounts, error = p3cw.request(entity='accounts', action='')
     if error:
         raise Exception("Error fetching accounts:", error)
     ACCOUNT_ID = None
@@ -44,7 +45,7 @@ def main():
         raise Exception("No active GBP account found!")
 
     # --- 3. Get available GBP balance for order sizing ---
-    balances, error = tc.get_account_table_balance(ACCOUNT_ID)
+    balances, error = p3cw.request(entity='accounts', action='account_table_balance', action_id=ACCOUNT_ID)
     if error:
         raise Exception("Error fetching balances:", error)
     available_gbp = None
