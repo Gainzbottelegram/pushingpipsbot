@@ -1,44 +1,44 @@
 import os
-import time
-import hmac
-import hashlib
 import requests
-from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
-API_KEY = os.getenv("THREECOMMAS_API_KEY")
-API_SECRET = os.getenv("THREECOMMAS_API_SECRET")
-API_BASE = "https://api.3commas.io/public/api/v2"
+THREECOMMAS_API_KEY = os.environ['THREECOMMAS_API_KEY']
+THREECOMMAS_API_SECRET = os.environ['THREECOMMAS_API_SECRET']
+ACCOUNT_ID = 2038223 
 
-def generate_signature(path, nonce, secret):
-    message = f"{nonce}{path}"
-    signature = hmac.new(secret.encode(), message.encode(), hashlib.sha256).hexdigest()
-    return signature
+API_URL = "https://api.3commas.io/public/api/ver1"
 
-def get_account_info():
-    path = "/accounts"
-    url = f"{API_BASE}{path}"
-    nonce = str(int(time.time() * 1000))
-    signature = generate_signature(path, nonce, API_SECRET)
-
-    headers = {
-        "APIKEY": API_KEY,
-        "Signature": signature,
-        "Nonce": nonce
+# Get 3c headers
+def get_headers():
+    return {
+        'APIKEY': THREECOMMAS_API_KEY,
     }
 
-    response = requests.get(url, headers=headers)
-    if response.ok:
-        return response.json()
-    else:
-        print("Failed:", response.status_code, response.text)
-        return None
+# Check balance (update for your exchange)
+def get_balance():
+    url = f"{API_URL}/accounts/{ACCOUNT_ID}/load_balances"
+    r = requests.get(url, headers=get_headers())
+    return r.json()
+
+# Create grid bot (fill in parameters as needed)
+def create_grid_bot(pair="BTC_USDT", investment=10):
+    url = f"{API_URL}/bots/create_grid_bot"
+    payload = {
+        "account_id": ACCOUNT_ID,
+        "pair": pair,
+        "base_order_volume": investment,
+        "take_profit": 1.0,  # 1% TP
+        # Add more grid parameters as needed
+    }
+    r = requests.post(url, headers=get_headers(), json=payload)
+    return r.json()
 
 if __name__ == "__main__":
-    info = get_account_info()
-    if info:
-        print("✅ Connected to your 3Commas account(s):")
-        for acc in info:
-            print(f"- {acc['name']} ({acc['id']})")
+    # Example: fetch balance, adjust investment based on size
+    balances = get_balance()
+    usdt_balance = float(balances.get('USDT', 0))
+    investment = max(10, usdt_balance * 0.2)  # 20% of balance per bot
+
+    # TODO: logic to pick the best pair (for now, hardcode)
+    result = create_grid_bot(pair="BTC_USDT", investment=investment)
+    print(result)
 
