@@ -1,1 +1,2 @@
-web: python3 kraken_telegram_bot.py
+worker: python3 threecommas_bot.py
+
