@@ -34,6 +34,7 @@ def main():
 
     # --- 2. Find active GBP spot account ---
     accounts, error = p3cw.request(entity='accounts', action='')
+    print("ACCOUNTS RESPONSE:", accounts)
     if error:
         raise Exception("Error fetching accounts:", error)
     ACCOUNT_ID = None
